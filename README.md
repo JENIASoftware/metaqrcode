@@ -65,6 +65,8 @@ To upload the helloworld xml document you have to :
     			}
     		  } 
     		}); // send ajax POST request
+
+
 ## Basic Concepts ##
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 An XML document into metaqrcode is called Repository Entry. In metaqrcode the repository is the container of all repository entry, then the repository is the container of all XML documents. 

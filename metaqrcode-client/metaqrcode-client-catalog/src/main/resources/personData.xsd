@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="personData" type="personData"/>
+
+  <xs:complexType name="personData">
+    <xs:sequence>
+      <xs:element name="firstName" type="xs:string" minOccurs="0"/>
+      <xs:element name="lastName" type="xs:string" minOccurs="0"/>
+      <xs:element name="sex" type="sex" minOccurs="0"/>
+      <xs:element name="birthday" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="birthPlace" type="xs:string" minOccurs="0"/>
+      <xs:element name="citizenship" type="xs:string" minOccurs="0"/>
+      <xs:element name="address" type="xs:string" minOccurs="0"/>
+      <xs:element name="eMail" type="xs:string" minOccurs="0"/>
+      <xs:element name="taxCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="phone" type="xs:string" minOccurs="0"/>
+      <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="sex">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MALE"/>
+      <xs:enumeration value="OTHER"/>
+      <xs:enumeration value="FEMALE"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

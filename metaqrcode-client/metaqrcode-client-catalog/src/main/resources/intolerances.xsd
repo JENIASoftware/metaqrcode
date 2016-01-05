@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="intolerances" type="intolerances"/>
+
+  <xs:complexType name="intolerances">
+    <xs:sequence>
+      <xs:element name="gluten" type="xs:boolean"/>
+      <xs:element name="milk" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:include schemaLocation="personData.xsd" />
+
+  <xs:element name="customer" type="customer"/>
+
+  <xs:complexType name="customer">
+    <xs:complexContent>
+      <xs:extension base="personData">
+        <xs:sequence>
+          <xs:element name="customerId" type="xs:long"/>
+          <xs:element name="customerType" type="customerType" minOccurs="0"/>
+          <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="customerType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EASY"/>
+      <xs:enumeration value="PRO"/>
+      <xs:enumeration value="NORMAL"/>
+      <xs:enumeration value="TOP"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+

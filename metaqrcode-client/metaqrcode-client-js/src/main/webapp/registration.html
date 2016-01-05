@@ -1,0 +1,293 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/dalert.jquery.js"></script>
+<script src="tools.js"></script>
+<script type="text/javascript">
+var sessionToken = null;
+function registrationPrepare() {
+	var requestRegistrationPrepare = new Object();
+	requestRegistrationPrepare.email=$('#email').val();
+	requestRegistrationPrepare.password=$('#password').val();
+	requestRegistrationPrepare.nickName=$('#nickName').val();
+	requestRegistrationPrepare.firstName=$('#firstName').val();
+	requestRegistrationPrepare.lastName=$('#lastName').val();
+	requestRegistrationPrepare.address=$('#address').val();
+	requestRegistrationPrepare.city=$('#city').val();
+	requestRegistrationPrepare.zipCode=$('#zipCode').val();
+	requestRegistrationPrepare.preferredLanguage=$('#preferredLanguage').val();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/prepare",
+		  data: JSON.stringify(requestRegistrationPrepare),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("registration preapre success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function registrationConfirm() {
+	var requestRegistrationConfirm = new Object();
+	requestRegistrationConfirm.email=$('#email').val();
+	requestRegistrationConfirm.registrationConfirmationCode=$('#registrationConfirmationCode').val();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/confirm",
+		  data: JSON.stringify(requestRegistrationConfirm),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("registration confirm success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function login() {
+	var requestLogin = new Object();
+	requestLogin.email=$('#email').val();
+	requestLogin.password=$('#password').val();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/login/login",
+		  data: JSON.stringify(requestLogin),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				sessionToken=data.sessionToken;
+				dalert.alert("request Login",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function registrationRead() {
+	var requestRegistrationRead = new Object();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/read",
+		  data: JSON.stringify(requestRegistrationRead),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("registration read success<br/>"+
+						"email = " + data.email + "<br/>" +
+						"nickName = " + data.nickName + "<br/>" +
+						"firstName = " + data.firstName + "<br/>" +
+						"lastName = " + data.lastName + "<br/>" +
+						"address = " + data.address + "<br/>" +
+						"city = " + data.city + "<br/>" +
+						"zipCode = " + data.zipCode + "<br/>" +
+						"preferredLanguage = " + data.preferredLanguage + "<br/>" +
+						'','Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function registrationUpdate() {
+	var requestRegistrationUpdate = new Object();
+	requestRegistrationUpdate.email=$('#email').val();
+	requestRegistrationUpdate.nickName=$('#nickName').val();
+	requestRegistrationUpdate.firstName=$('#firstName').val();
+	requestRegistrationUpdate.lastName=$('#lastName').val();
+	requestRegistrationUpdate.address=$('#address').val();
+	requestRegistrationUpdate.city=$('#city').val();
+	requestRegistrationUpdate.zipCode=$('#zipCode').val();
+	requestRegistrationUpdate.preferredLanguage=$('#preferredLanguage').val();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/update",
+		  data: JSON.stringify(requestRegistrationUpdate),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("registration update success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function passwordUpdate() {
+	var requestPasswordUpdate = new Object();
+	requestPasswordUpdate.password=$('#password').val();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/passwordUpdate",
+		  data: JSON.stringify(requestPasswordUpdate),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("password update success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function passwordForgotten() {
+	var requestPasswordForgotten = new Object();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/passwordForgotten",
+		  data: JSON.stringify(requestPasswordForgotten),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("password forgotten success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function unregister() {
+	var requestUnregister = new Object();
+	requestUnregister.email=$('#email').val();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/remove",
+		  data: JSON.stringify(requestRegistrationConfirm),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("unregister success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+</script>
+</head>
+<body>
+	<form id="uploadForm" action="javascript:return false;">
+		<p>email : 
+			<input type="text" name="email" id="email"/></p>
+		<p>password : 
+			<input type="text" name="password" id="password"/></p>
+		<p>nickName : 
+			<input type="text" name="nickName" id="nickName"/></p>
+		<p>firstName : 
+			<input type="text" name="firstName" id="firstName"/></p>
+		<p>lastName : 
+			<input type="text" name="lastName" id="lastName"/></p>
+		<p>address : 
+			<input type="text" name="address" id="address"/></p>
+		<p>city : 
+			<input type="text" name="city" id="city"/></p>
+		<p>zipCode : 
+			<input type="text" name="zipCode" id="zipCode"/></p>
+		<p>preferredLanguage : 
+			<input type="text" name="preferredLanguage" id="preferredLanguage"/></p>
+		<p>registrationConfirmationCode : 
+			<input type="text" name="registrationConfirmationCode" id="registrationConfirmationCode"/></p>
+		<a href="#" onclick="return registrationPrepare();">registration prepare</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return registrationConfirm();">registration confirm</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return login();">login</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return registrationRead();">registration read</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return registrationUpdate();">registration update</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return passwordUpdate();">password update</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return passwordForgotten();">password forgotten</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return unregister();">unregister</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+	</form>
+</body>
+</html>

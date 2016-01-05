@@ -1,0 +1,245 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/dalert.jquery.js"></script>
+<script src="tools.js"></script>
+<script type="text/javascript">
+$(function (){
+	// at page load, automatically register a user and do login
+	verifyRegistrationAndLogin();
+});
+
+// upload a catalog entry (XSD) into metaqrcode
+function uploadCatalog() {
+	// we have to send the json request and the XSD, to do that we have to create a formdata
+	var data = new FormData();
+	var requestCatalogUpload = new Object();
+	requestCatalogUpload.name=$('#name').val();
+	requestCatalogUpload.description=$('#description').val();
+	// in the form we put two attribute : request -> the json request
+	data.append('request', new Blob([JSON.stringify(requestCatalogUpload)], {
+	    type: "application/json"
+	}));
+	// and xsd -> the catalog entry (XSD) to be uploaded
+	data.append('xsd',$('#xsd')[0].files[0]);
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/upload",
+		  data: data,
+		  cache: false,
+		  contentType: false,
+		  processData: false,
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				$('#uploadedDownload').text(data.catalogGet);
+				$('#uploadedDownload').attr("href", data.catalogGet)
+				dalert.alert(data.id,'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+// search for a catalog entry (XSD)
+function searchCatalog() {
+	var requestCatalogSearch = new Object();
+	requestCatalogSearch.nameLike="%" + $('#name').val() + "%";
+	requestCatalogSearch.descriptionLike="%" + $('#description').val() + "%";
+	requestCatalogSearch.pageNumber=0;
+	requestCatalogSearch.rowPerPage=50;
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/search",
+		  data: JSON.stringify(requestCatalogSearch),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				// with result we build an html table
+				var result = "";
+				for (var i = 0; i<data.result.length;i++) {
+					result += "<tr>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += data.result[i].id;
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += data.result[i].name;
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += data.result[i].description;
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += data.result[i].nickNamePublisher;
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += data.result[i].numberOfReferences;
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += data.result[i].stars;
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += '<a href="#" onclick="return voteCatalog('+data.result[i].id+');">';
+					result += "vote"
+					result += "</a>";
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += '<a href="#" onclick="return deleteCatalog('+data.result[i].id+');">';
+					result += "delete"
+					result += "</a>";
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += '<a href="#" onclick="return downloadCatalog('+data.result[i].id+');">';
+					result += "download"
+					result += "</a>";
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += '<a href="'+data.result[i].catalogGet+'" >';
+					result += data.result[i].catalogGet
+					result += "</a>";
+					result += "</td>";
+					result += "</tr>";
+				}
+				$('#searchResult').html(result);
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+// delete a catalog entry (XSD). 
+// Only possible if no repository entry (XML) refers to it
+function deleteCatalog(id) {
+	var requestCatalogDelete = new Object();
+	requestCatalogDelete.id=id;
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/delete",
+		  data: JSON.stringify(requestCatalogDelete),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("delete success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+//vote a catalog entry (XSD). 
+function voteCatalog(id) {
+	var requestCatalogVote = new Object();
+	requestCatalogVote.id=id;
+	requestCatalogVote.stars=Math.floor((Math.random() * 3) + 1);;
+	requestCatalogVote.note="note for this voting";
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/vote",
+		  data: JSON.stringify(requestCatalogVote),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("vote success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+// download a catalog entry (XSD)
+// you can also do this using a simple GET 
+function downloadCatalog(id) {
+	var requestCatalogDownload = new Object();
+	requestCatalogDownload.id=id;
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/download",
+		  data: JSON.stringify(requestCatalogDownload),
+//		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (jqXHR.status >= 200 && jqXHR.status < 300) {
+				$('#xsdOut').val(jqXHR.responseText);
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+</script>
+</head>
+<body>
+	<form id="uploadForm" action="javascript:return false;">
+		<p>name : 
+		<input type="text" name="name" id="name"/></p>
+		<p>description : 
+		<input type="text" name="description" id="description"/></p>
+		<p>xsd : 
+		<input type="file" name="xsd" id="xsd"/></p>
+		<a href="#" onclick="return uploadCatalog();">upload xsd</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return voteCatalog();">vote uploaded xsd</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return searchCatalog();">search xsd</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+	</form>
+	<hr/>
+	<p>catalog loaded : <a href="#" id="uploadedDownload"></a></p>
+	<table>
+	<tbody id="searchResult">
+	</tbody>
+	</table>
+	<textarea rows="20" cols="200" id="xsdOut">
+	</textarea>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/dalert.jquery.js"></script>
+<script src="tools.js"></script>
+<script type="text/javascript">
+function test0() {
+	alert("test0 alert");
+	return false;
+}
+function test1() {
+	dalert.alert('test1 alert','Alert');
+	return false;
+}
+function test2() {
+	var pingRequest = new Object();
+	pingRequest.from="js client";
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/ping/nowAnonymous",
+		  data: JSON.stringify(pingRequest),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert(data.result,'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function test3() {
+	var pingRequest = new Object();
+	pingRequest.from="js client";
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/ping/failAnonymous",
+		  data: JSON.stringify(pingRequest),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+				if (data.returnCode >= 0) {
+					dalert.alert("This request should fail....",'Error');
+				} else {
+					dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+				}
+		  } 
+		});
+	return false;
+}
+
+function test4() {
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/xml/ping/nowAnonymous",
+		  data: "<requestPingAnonymous><from>js client</from></requestPingAnonymous>",
+		  dataType: "xml",
+		  contentType: "application/xml; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			xml = $(data);
+			if (xml.find("returnCode").text() >= 0) {
+				dalert.alert(xml.find("result").text(),'Success');
+			} else {
+				dalert.alert("returncode : " + xml.find("returnCode").text() + "; reason : " + xml.find("reason").text(),'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function test5() {
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/xml/ping/failAnonymous",
+		  data: "<requestPingAnonymous><from>js client</from></requestPingAnonymous>",
+		  dataType: "xml",
+		  contentType: "application/xml; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			  xml = $(data);
+			  if (xml.find("returnCode").text() >= 0) {
+				  dalert.alert("This request should fail....",'Error');
+			  } else {
+				  dalert.alert("returncode : " + xml.find("returnCode").text() + "; reason : " + xml.find("reason").text(),'Success');
+			  }
+		  } 
+		});
+	return false;
+}
+function test6() {
+	var pingRequest = new Object();
+	pingRequest.from="js client";
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/ping/nowAuthenticated",
+		  data: JSON.stringify(pingRequest),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert(data.result,'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function test7() {
+	var pingRequest = new Object();
+	pingRequest.from="js client";
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/ping/failAuthenticated",
+		  data: JSON.stringify(pingRequest),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+				if (data.returnCode >= 0) {
+					dalert.alert("This request should fail....",'Error');
+				} else {
+					dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+				}
+		  } 
+		});
+	return false;
+}
+
+
+</script>
+</head>
+<body>
+	<a href="#" onclick="return test0();">test 0 - basic alert js std</a>
+	<br />
+	<a href="#" onclick="return test1();">test 1 - jquery alert</a>
+	<br />
+	<a href="#" onclick="return test2();">test 2 - rest json ping anonymous</a>
+	<br />
+	<a href="#" onclick="return test3();">test 3 - rest json ping failure anonymous</a>
+	<br />
+	<a href="#" onclick="return test4();">test 4 - rest xml ping anonymous</a>
+	<br />
+	<a href="#" onclick="return test5();">test 5 - rest xml ping failure anonymous</a>
+	<br />
+	<a href="#" onclick="return verifyRegistrationAndLogin();">test 6 - verify registration and login</a>
+	<br />
+	<a href="#" onclick="return test6();">test 6 - rest json ping authenticated</a>
+	<br />
+	<a href="#" onclick="return test7();">test 7 - rest json ping failure authenticated</a>
+</body>
+</html>

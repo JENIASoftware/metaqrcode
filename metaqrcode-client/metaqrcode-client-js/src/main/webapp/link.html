@@ -1,0 +1,119 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/dalert.jquery.js"></script>
+<script src="tools.js"></script>
+<script type="text/javascript">
+$(function (){
+	// at page load, automatically register a user and do login
+	verifyRegistrationAndLogin();
+});
+var currentLinkId;
+function createLink() {
+	var requestLinkCreate = new Object();
+	requestLinkCreate.repositoryId=$('#repositoryId').val();
+	requestLinkCreate.otherCode=$('#otherCode').val();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/link/create",
+		  data: JSON.stringify(requestLinkCreate),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				$('#uploadedDownload').text(data.linkGet);
+				$('#uploadedDownload').attr("href", data.linkGet);
+				currentLinkId = data.id;
+				dalert.alert("create success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function deleteLink() {
+	var requestLinkDelete = new Object();
+	requestLinkDelete.otherCode=$('#otherCode').val();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/link/delete",
+		  data: JSON.stringify(requestLinkDelete),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("delete success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+function downloadLink() {
+	var requestLinkDownload = new Object();
+	requestLinkDownload.otherCode=$('#otherCode').val();
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/link/download",
+		  data: JSON.stringify(requestLinkDownload),
+//		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (jqXHR.status >= 200 && jqXHR.status < 300) {
+				$('#xmlOut').val(jqXHR.responseText);
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+
+</script>
+</head>
+<body>
+	<form id="uploadForm" action="javascript:return false;">
+		<p>repository id : 
+			<input type="text" name="repositoryId" id="repositoryId"/></p>
+		<p>other barcode/qrcode (unique) : 
+			<input type="text" name="otherCode" id="otherCode"/></p>
+		<a href="#" onclick="return createLink();">create link</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return deleteLink();">delete link</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return downloadLink();">download link</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+	</form>
+	<hr/>
+	<p>link get : <a href="#" id="uploadedDownload"></a></p>
+	<textarea rows="20" cols="200" id="xmlOut">
+	</textarea>
+</body>
+</html>

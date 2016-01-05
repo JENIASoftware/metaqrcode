@@ -1,0 +1,350 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/dalert.jquery.js"></script>
+<script src="tools.js"></script>
+<script type="text/javascript">
+$(function (){
+	// at page load, automatically register a user and do login
+	verifyRegistrationAndLogin();
+});
+var currentXML=null;
+// upload a repository entry (XML) on metaqrcode server
+function uploadRepositoryFile() {
+	// we have to send the json request and the XML, to do that we have to create a formdata
+	var data = new FormData();
+	var requestRepositoryUpload = new Object();
+	requestRepositoryUpload.defaultCatalog=$('#defaultCatalog').val();
+	requestRepositoryUpload.correlationId=$('#correlationId').val();
+	// in the form we put two attribute : request -> the json request
+	data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
+	    type: "application/json"
+	}));
+	// and xml -> the repository entry (XML) to be uploaded
+	data.append('xml',$('#xml')[0].files[0]);
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/upload",
+		  data: data,
+		  cache: false,
+		  contentType: false,
+		  processData: false,
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				currentXML=null;
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				currentXML=data;
+				$('#uploadedDownload').text(data.repositoryGet);
+				$('#uploadedDownload').attr("href", data.repositoryGet);
+				$('#uploadedDownloadAsJson').text(data.repositoryGet+"/json");
+				$('#uploadedDownloadAsJson').attr("href", data.repositoryGet+"/json");
+				$('#qrcode').attr("src", data.qrcodeGet);
+				dalert.alert(data.id,'Success');
+			} else {
+				currentXML=null;
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+// the same upload as previous method but the XML will be edited into a textarea
+function uploadRepositoryTextArea() {
+	// we have to send the json request and the XML, to do that we have to create a formdata
+	var data = new FormData();
+	var requestRepositoryUpload = new Object();
+	requestRepositoryUpload.defaultCatalog=$('#defaultCatalog').val();
+	requestRepositoryUpload.correlationId=$('#correlationId').val();
+	// in the form we put two attribute : request -> the json request
+	data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
+	    type: "application/json"
+	}));
+	// and xml -> the repository entry (XML) to be uploaded
+	var blob = new Blob([$('#xmlTextArea').val()], { type: "text/xml"});
+	data.append('xml',blob);
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/upload",
+		  data: data,
+		  cache: false,
+		  contentType: false,
+		  processData: false,
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				currentXML=null;
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				currentXML=data;
+				$('#uploadedDownload').text(data.repositoryGet);
+				$('#uploadedDownload').attr("href", data.repositoryGet);
+				$('#qrcode').attr("src", data.qrcodeGet);
+				dalert.alert(data.id,'Success');
+			} else {
+				currentXML=null;
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+// update a repository entry (XML)
+function updateRepository() {
+	if (currentXML==null) {
+		dalert.alert("No current XML loaded",'ATTENTION!');
+		return false;
+	}
+	// we have to send the json request and the XML, to do that we have to create a formdata
+	var data = new FormData();
+	var requestRepositoryUpdate = new Object();
+	requestRepositoryUpdate.id=currentXML.id;
+	requestRepositoryUpdate.defaultCatalog=$('#defaultCatalog').val();
+	// in the form we put two attribute : request -> the json request
+	data.append('request', new Blob([JSON.stringify(requestRepositoryUpdate)], {
+	    type: "application/json"
+	}));
+	// and xml -> the repository entry (XML) to be uploaded
+	data.append('xml',$('#xml')[0].files[0]);
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/update",
+		  data: data,
+		  cache: false,
+		  contentType: false,
+		  processData: false,
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				dalert.alert("update ok",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+// delete a repository entry (XML)
+function deleteRepository(xmlId) {
+	if (xmlId!=null) {
+		currentXML = new Object();
+		currentXML.id = xmlId;  
+	}
+	if (currentXML==null) {
+		dalert.alert("No current XML loaded",'ATTENTION!');
+		return false;
+	}
+	var requestRepositoryDelete = new Object();
+	requestRepositoryDelete.id=currentXML.id;
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/delete",
+		  data: JSON.stringify(requestRepositoryDelete),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				currentXML=null;
+				$('#uploadedDownload').text("");
+				$('#uploadedDownload').attr("href", "");
+				dalert.alert("delete success",'Success');
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+// download a repository entry
+function downloadRepository(xmlId) {
+	if (xmlId!=null) {
+		currentXML = new Object();
+		currentXML.id = xmlId;  
+	}
+	if (currentXML==null) {
+		dalert.alert("No current XML loaded",'ATTENTION!');
+		return false;
+	}
+	
+	var requestRepositoryDownload = new Object();
+	requestRepositoryDownload.id=currentXML.id;
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/download",
+		  data: JSON.stringify(requestRepositoryDownload),
+//		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (jqXHR.status >= 200 && jqXHR.status < 300) {
+				$('#xmlTextArea').val(jqXHR.responseText);
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+// download a repository entry as json
+function downloadRepositoryJson(xmlId) {
+	if (xmlId!=null) {
+		currentXML = new Object();
+		currentXML.id = xmlId;  
+	}
+	if (currentXML==null) {
+		dalert.alert("No current XML loaded",'ATTENTION!');
+		return false;
+	}
+	
+	var requestRepositoryDownload = new Object();
+	requestRepositoryDownload.id=currentXML.id;
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/downloadAsJson",
+		  data: JSON.stringify(requestRepositoryDownload),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (jqXHR.status >= 200 && jqXHR.status < 300) {
+				$('#xmlTextArea').val(jqXHR.responseText);
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+// search for a repository entry (XML)
+function searchRepository() {
+	var requestRepositorySearch = new Object();
+	requestRepositorySearch.correlationIdLike="%" + $('#correlationId').val() + "%";
+	requestRepositorySearch.catalogEntryId=$('#defaultCatalog').val()
+	requestRepositorySearch.pageNumber=0;
+	requestRepositorySearch.rowPerPage=50;
+	$.ajax({
+		  type: "POST",
+		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/search",
+		  data: JSON.stringify(requestRepositorySearch),
+		  dataType: "json",
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				var result = "";
+				for (var i = 0; i<data.result.length;i++) {
+					result += "<tr>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += data.result[i].id;
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += data.result[i].correlationId;
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += '<a href="#" onclick="return deleteRepository('+data.result[i].id+');">';
+					result += "delete"
+					result += "</a>";
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += '<a href="#" onclick="return downloadRepository('+data.result[i].id+');">';
+					result += "download"
+					result += "</a>";
+					result += "</td>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += '<a href="'+data.result[i].repositoryGet+'" >';
+					result += data.result[i].repositoryGet
+					result += "</a>";
+					result += '<td style="border-right: 1px solid black;">';
+					result += '<a href="'+data.result[i].qrcodeGet+'" >';
+					result += data.result[i].qrcodeGet
+					result += "</a>";
+					result += "</td>";
+					result += "</tr>";
+				}
+				$('#searchResult').html(result);
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return false;
+}
+</script>
+</head>
+<body>
+	<form id="uploadForm" action="javascript:return false;">
+		<p>correlationId (mandatory) : 
+			<input type="text" name="correlationId" id="correlationId"/></p>
+		<p>default catalog (optional) : 
+			<input type="text" name="defaultCatalog" id="defaultCatalog"/></p>
+		<p>xml : 
+			<input type="file" name="xml" id="xml"/></p>
+		<a href="#" onclick="return uploadRepositoryFile();">upload xml file</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return uploadRepositoryTextArea();">upload xml textArea</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return updateRepository();">update last xml</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return deleteRepository();">delete last xml</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return downloadRepository();">download last xml</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return downloadRepositoryJson();">download last xml in json format</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="return searchRepository();">search xml</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+	</form>
+	<hr/>
+	<p>repository loaded : <a href="#" id="uploadedDownload"></a></p>
+	<p>repository loaded as json : <a href="#" id="uploadedDownloadAsJson"></a></p>
+	<p>qrcode : <img src="" id="qrcode"></img></p>
+	<table>
+	<tbody id="searchResult">
+	</tbody>
+	</table>
+	<textarea rows="20" cols="200" id="xmlTextArea">
+	</textarea>
+</body>
+</html>

@@ -407,12 +407,12 @@ You can upload this repository entry (XML) as shown in 4.2, you only have to pay
 ## 5. using qrcode ##
 
 After repository entry (XML) upload you can get the QRCODE corresponding to your xml using data.qrcodeGet (as whown in 1. and in 4.2.).
+
 QRCODE is generated as image in PNG format. The dimension of the qrcode is based on this http://www.qrstuff.com/blog/2011/11/23/qr-code-minimum-size
-Size of generated qrcode is 210px x 210px because we suppose that you will print it in minimum 300dpi resolution. If you print with this resolution you will have a qrcode of 0,7x0,7 inch (18x18 mm).
-You can reseize the PNG received depending on quality of your print. If you print using a 600dpi resolution, you can print your qrcode using half dimensions (0,35x0,35 inch -> 9x9 mm).
-These are only theoretical calculations, in the real world you have to do some experiment to check best result in your scenario.
-To verify result of your metaqrcode print you can use many app. The first you can use is the zxing mobile app : https://play.google.com/store/apps/details?id=com.google.zxing.client.android
-Zxing is an opensource project (https://github.com/zxing, https://zxingnet.codeplex.com/) available in many technologies (java, .net, etc.).
+
+Size of generated qrcode is 210px x 210px because we suppose that you will print it in minimum 300dpi resolution. If you print with this resolution you will have a qrcode of 0,7x0,7 inch (18x18 mm). You can reseize the PNG received depending on quality of your print. If you print using a 600dpi resolution, you can print your qrcode using half dimensions (0,35x0,35 inch -> 9x9 mm).
+
+These are only theoretical calculations, in the real world you have to do some experiment to check best result in your scenario.To verify result of your metaqrcode print you can use many app. The first you can use is the zxing mobile app : https://play.google.com/store/apps/details?id=com.google.zxing.client.android. Zxing is an opensource project (https://github.com/zxing, https://zxingnet.codeplex.com/) available in many technologies (java, .net, etc.).
 
 
 

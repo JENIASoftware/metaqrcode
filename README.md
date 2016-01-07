@@ -131,7 +131,7 @@ Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to regist
 
 For more info see our configuration endpoint: [http://www.metaqrcode.com/oidc/.well-known/openid-configuration](http://www.metaqrcode.com/oidc/.well-known/openid-configuration)
 
-*Note that uploaded XML are "property of" the user has uploaded them. We discourage using one generic user and password for all users of your app.
+*Note that uploaded XML are "property of" the user has uploaded them. We discourage using one generic user and password for all users of your app.*
 
 *We also discourage use of login REST API. The preferred method to login users is openidconnect.*
 You can register user inside metaqrcode using REST API, but you should never save userid and password of your users.*

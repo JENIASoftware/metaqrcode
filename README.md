@@ -12,7 +12,7 @@ This is the xml document we want to upload:
     <helloWorld>
       <who>Andrea</who>
     </helloWorld>
-    
+	
 You can upload it using graphcal interface (our website) or using metaqrcode REST API.
 
 #### Using Metaqrcode Website ####
@@ -30,7 +30,7 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 
 - login to metaqrcode (using login REST API or openidconnect, see below)
 - search in metaqrcode catalog for helloworld.xsd and copy the catalog URL into clipboard
-
+	
 	//
 	// after login we can upload XML
 	//
@@ -71,7 +71,7 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 			}
 		  } 
 		}); // send ajax POST request
-
+		
 # 2. Basic Concepts #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!

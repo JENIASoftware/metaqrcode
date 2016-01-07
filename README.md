@@ -1,4 +1,4 @@
-# metaqrcode getting started
+# metaqrcode getting started #
 
 ## 1. hello world! ##
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
@@ -12,7 +12,7 @@ This is the xml document we want to upload:
     
 You can upload it using graphcal interface (our website) or using metaqrcode REST API.
 
-## Using Metaqrcode Website ##
+### Using Metaqrcode Website ###
 
 - login to metaqrcode
 - search in metaqrcode catalog for helloworld.xsd and copy the catalog URL
@@ -23,12 +23,12 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 - you will see the qrcode of the uploaded xml
 - you can use the generated qrcode (by ie download) 
 
-## Consume Metaqrcode REST API ##
+### Consume Metaqrcode REST API ###
 
 - login to metaqrcode (using login REST API or openidconnect, see below)
-- search in metaqrcode catalog for helloworld.xsd and copy the catalog URL
+- search in metaqrcode catalog for helloworld.xsd and copy the catalog URL into clipboard
 
-	    // after login we can upload XML
+        // after login we can upload XML
     	//
     	var data = new FormData(); // create the form data to send within subsequent post
     	var requestRepositoryUpload = new Object(); // create the upload xml request 
@@ -70,6 +70,7 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 
 
 ## Basic Concepts ##
+
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 An XML document into metaqrcode is called Repository Entry. In metaqrcode the repository is the container of all repository entry, then the repository is the container of all XML documents. 
 Each XML document inside metaqrcode has to be associated with at least an XSD. 

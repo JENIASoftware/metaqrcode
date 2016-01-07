@@ -424,43 +424,43 @@ All metaqrcode REST API can be consumed using JSON or XML.
 
 #### XML URL ####
 
-http://localhost:8080/api/rest/xml/ping?_wadl
+http://www.metaqrcode.com/api/rest/xml/ping?_wadl
 
-http://localhost:8080/api/rest/xml/catalog?_wadl
+http://www.metaqrcode.com/api/rest/xml/catalog?_wadl
 
-http://localhost:8080/api/rest/xml/repository?_wadl
+http://www.metaqrcode.com/api/rest/xml/repository?_wadl
 
-http://localhost:8080/api/rest/xml/link?_wadl
+http://www.metaqrcode.com/api/rest/xml/link?_wadl
 
-http://localhost:8080/api/rest/xml/registration?_wadl
+http://www.metaqrcode.com/api/rest/xml/registration?_wadl
 
-http://localhost:8080/api/rest/xml/login?_wadl
+http://www.metaqrcode.com/api/rest/xml/login?_wadl
 
 #### JSON URL ####
 
-http://localhost:8080/api/rest/json/ping?_wadl
+http://www.metaqrcode.com/api/rest/json/ping?_wadl
 
-http://localhost:8080/api/rest/json/catalog?_wadl
+http://www.metaqrcode.com/api/rest/json/catalog?_wadl
 
-http://localhost:8080/api/rest/json/repository?_wadl
+http://www.metaqrcode.com/api/rest/json/repository?_wadl
 
-http://localhost:8080/api/rest/json/link?_wadl
+http://www.metaqrcode.com/api/rest/json/link?_wadl
 
-http://localhost:8080/api/rest/json/registration?_wadl
+http://www.metaqrcode.com/api/rest/json/registration?_wadl
 
-http://localhost:8080/api/rest/json/login?_wadl
+http://www.metaqrcode.com/api/rest/json/login?_wadl
 
 #### other URL ####
 
-http://localhost:8080/api/c/{id}
-http://localhost:8080/api/c/{id}/detail
-http://localhost:8080/api/r/{id}
-http://localhost:8080/api/r/{id}/json
-http://localhost:8080/api/r/{id}/detail
-http://localhost:8080/api/qr/{id}
-http://localhost:8080/api/l/{oc}
-http://localhost:8080/api/l/{oc}/json
-http://localhost:8080/api/l/{oc}/detail
+http://www.metaqrcode.com/api/c/{id}
+http://www.metaqrcode.com/api/c/{id}/detail
+http://www.metaqrcode.com/api/r/{id}
+http://www.metaqrcode.com/api/r/{id}/json
+http://www.metaqrcode.com/api/r/{id}/detail
+http://www.metaqrcode.com/api/qr/{id}
+http://www.metaqrcode.com/api/l/{oc}
+http://www.metaqrcode.com/api/l/{oc}/json
+http://www.metaqrcode.com/api/l/{oc}/detail
 
 
 

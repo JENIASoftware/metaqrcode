@@ -452,15 +452,23 @@ http://www.metaqrcode.com/api/rest/json/login?_wadl
 
 #### other URL ####
 
-http://www.metaqrcode.com/api/c/{id}
-http://www.metaqrcode.com/api/c/{id}/detail
-http://www.metaqrcode.com/api/r/{id}
-http://www.metaqrcode.com/api/r/{id}/json
-http://www.metaqrcode.com/api/r/{id}/detail
-http://www.metaqrcode.com/api/qr/{id}
-http://www.metaqrcode.com/api/l/{oc}
-http://www.metaqrcode.com/api/l/{oc}/json
-http://www.metaqrcode.com/api/l/{oc}/detail
+http://www.metaqrcode.com/api/c/{id} -> download catalog entry (XSD) by id
+
+http://www.metaqrcode.com/api/c/{id}/detail -> download catalog entry description by id
+
+http://www.metaqrcode.com/api/r/{id} -> download repository entry (XML) by id
+
+http://www.metaqrcode.com/api/r/{id}/json -> download repository entry (XML) as json by id
+
+http://www.metaqrcode.com/api/r/{id}/detail -> download repository entry description by id
+
+http://www.metaqrcode.com/api/qr/{id} -> download wrcode (image) of a repository entry id
+
+http://www.metaqrcode.com/api/l/{oc} -> download repository entry (XML) by his link
+
+http://www.metaqrcode.com/api/l/{oc}/json -> download repository entry (XML) as json his link
+
+http://www.metaqrcode.com/api/l/{oc}/detail -> download repository entry description by his link
 
 
 

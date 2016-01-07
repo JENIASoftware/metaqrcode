@@ -31,47 +31,47 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 - login to metaqrcode (using login REST API or openidconnect, see below)
 - search in metaqrcode catalog for helloworld.xsd and copy the catalog URL into clipboard
 	
-	//
-	// after login we can upload XML
-	//
-	var data = new FormData(); // create the form data to send within subsequent post
-	var requestRepositoryUpload = new Object(); // create the upload xml request 
-	requestRepositoryUpload.defaultCatalog=<catalog url>; // set the catalog URL the xml is referring to
-	requestRepositoryUpload.correlationId=<application correlation id>; // if you need to search this qrcode in the future you can use this (your) correlationId. This is optional
-	data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
-		type: "application/json"
-	})); // set the request as fitst parameter in the form data
-	var blob = new Blob(<your xml here>], { type: "text/xml"}); // create a Blob with the xml
-	data.append('xml',blob); // set the xml as second parameter in the form data (in alternative you can use data.append('xml',<file field>[0].files[0]);
-	$.ajax({
-		  type: "POST", // method MUST BE post
-		  url: "http://www.metaqrcode.com/api/rest/json/repository/upload", // XML upload URL
-		  data: data, // formdata object
-		  cache: false, 
-		  contentType: false, 
-		  processData: false,
-		  beforeSend: function (request) {
-    			// use one of two methods depending on login type used
-    			  if (<sessionToken>!=null) {
-    		  request.setRequestHeader("Authorization", "Token "+<sessionToken>);
-    			  }
-    			  if (<accessToken>!=null) {
-    		  request.setRequestHeader("Authorization", "Bearer "+<accessToken>);
-    			  }
-    	  },
-		  error: function(jqXHR, textStatus, errorThrown) {
-			// error handling 
-		  },
-		  success: function(data, textStatus, jqXHR) {
-			if (data.returnCode >= 0) { // verify that the response is ok
-				data.repositoryGet; // the link to get your XML
-				data.qrcodeGet; // *the link to get your QRCODE*   
-			} else {
-				// error handling 
-			}
-		  } 
-		}); // send ajax POST request
-		
+    //
+    // after login we can upload XML
+    //
+    var data = new FormData(); // create the form data to send within subsequent post
+    var requestRepositoryUpload = new Object(); // create the upload xml request 
+    requestRepositoryUpload.defaultCatalog=<catalog url>; // set the catalog URL the xml is referring to
+    requestRepositoryUpload.correlationId=<application correlation id>; // if you need to search this qrcode in the future you can use this (your) correlationId. This is optional
+    data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
+        type: "application/json"
+    })); // set the request as fitst parameter in the form data
+    var blob = new Blob(<your xml here>], { type: "text/xml"}); // create a Blob with the xml
+    data.append('xml',blob); // set the xml as second parameter in the form data (in alternative you can use data.append('xml',<file field>[0].files[0]);
+    $.ajax({
+          type: "POST", // method MUST BE post
+          url: "http://www.metaqrcode.com/api/rest/json/repository/upload", // XML upload URL
+          data: data, // formdata object
+          cache: false, 
+          contentType: false, 
+          processData: false,
+          beforeSend: function (request) {
+              // use one of two methods depending on login type used
+              if (<sessionToken>!=null) {
+                  request.setRequestHeader("Authorization", "Token "+<sessionToken>);
+              }
+              if (<accessToken>!=null) {
+                  request.setRequestHeader("Authorization", "Bearer "+<accessToken>);
+              }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            // error handling 
+          },
+          success: function(data, textStatus, jqXHR) {
+            if (data.returnCode >= 0) { // verify that the response is ok
+                data.repositoryGet; // the link to get your XML
+                data.qrcodeGet; // *the link to get your QRCODE*   
+            } else {
+                // error handling 
+            }
+          } 
+        }); // send ajax POST request
+        
 # 2. Basic Concepts #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!

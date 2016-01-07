@@ -241,7 +241,6 @@ In first case you can ONLY specify ONE catalog entry. Your entire XML must compl
 In the second case your XML can refer many catalog entries (XSD). We will now see this case. The first case is shown in "hello world" example.
 Suppose you want to upload this repository entry (XML) : 
 
-<pre>
 	<?xml version="1.0" encoding="UTF-8"?>
 	<personData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.metaqrcode/api/c/1">
 	  <firstName>firstName</firstName>
@@ -255,7 +254,6 @@ Suppose you want to upload this repository entry (XML) :
 	  <taxCode>taxCode</taxCode>
 	  <phone>phone</phone>
 	</personData>
-</pre>
 
 In this example you have an XML that refers to previous uploaded XSD : personData.xsd. 
 In the simple example the URL of the previously uploaded XSD is : 

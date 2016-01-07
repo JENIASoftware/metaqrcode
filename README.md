@@ -5,7 +5,9 @@ metaqrcode getting started
 # 1. hello world! #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
+
 As basic example of metaqrcode usage, you can try to upload an helloworld document.
+
 This is the xml document we want to upload:
  
     <?xml version="1.0" encoding="UTF-8"?>
@@ -77,8 +79,11 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 # 2. Basic Concepts #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
+
 An XML document into metaqrcode is called Repository Entry. In metaqrcode the repository is the container of all repository entry, then the repository is the container of all XML documents. 
+
 Each XML document inside metaqrcode has to be associated with at least an XSD. 
+
 In metaqrcode an XSD is called Catalog Entry. The Catalog is the container of all XSD.
 
 When you upload an XML you have to specify one or more XSD. The XML have to comply with the given XSD. Metaqrcode will check compliance during upload phase.
@@ -90,9 +95,13 @@ That's all relevants concepts of metaqrcode.
 # 3. Authentication/Authorization #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
+
 Metaqrcode expose rest json and rest xml API. Some API needs authentication to proceed.
+
 To authenticate to metaqrcode you can use two methods : login API or openidconnect.
+
 In every scenario you (developer) need to register yourself and the app you are developing on metaqrcode openidconnect server.
+
 Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to register yourself and your app. After client (app) registration you will obtain a client_id to use in login API.
 
 #### Get the metaqrcode session token ####

@@ -31,6 +31,7 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 - login to metaqrcode (using login REST API or openidconnect, see below)
 - search in metaqrcode catalog for helloworld.xsd and copy the catalog URL into clipboard
 
+	//
 	// after login we can upload XML
 	//
 	var data = new FormData(); // create the form data to send within subsequent post

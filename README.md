@@ -1,6 +1,10 @@
-# metaqrcode getting started #
+metaqrcode getting started
+--------------------------
 
-## 1. hello world! ##
+[TOC]
+
+# 1. hello world! #
+
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 As basic example of metaqrcode usage, you can try to upload an helloworld document.
 This is the xml document we want to upload:
@@ -12,7 +16,7 @@ This is the xml document we want to upload:
     
 You can upload it using graphcal interface (our website) or using metaqrcode REST API.
 
-### Using Metaqrcode Website ###
+#### Using Metaqrcode Website ####
 
 - login to metaqrcode
 - search in metaqrcode catalog for helloworld.xsd and copy the catalog URL
@@ -23,12 +27,12 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 - you will see the qrcode of the uploaded xml
 - you can use the generated qrcode (by ie download) 
 
-### Consume Metaqrcode REST API ###
+#### Consume Metaqrcode REST API ####
 
 - login to metaqrcode (using login REST API or openidconnect, see below)
 - search in metaqrcode catalog for helloworld.xsd and copy the catalog URL into clipboard
 
-        // after login we can upload XML
+       // after login we can upload XML
     	//
     	var data = new FormData(); // create the form data to send within subsequent post
     	var requestRepositoryUpload = new Object(); // create the upload xml request 
@@ -69,7 +73,7 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
     		}); // send ajax POST request
 
 
-## Basic Concepts ##
+# 2. Basic Concepts #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 An XML document into metaqrcode is called Repository Entry. In metaqrcode the repository is the container of all repository entry, then the repository is the container of all XML documents. 
@@ -81,14 +85,17 @@ When you upload an XML you have to specify one or more XSD. The XML have to comp
 When you upload an XML you can specify one XSD using API (outside the XML) or you can specify one or more XSD inside the XML document.
 
 That's all relevants concepts of metaqrcode. 
-## Authentication/Authorization ##
+
+# 3. Authentication/Authorization #
+
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 Metaqrcode expose rest json and rest xml API. Some API needs authentication to proceed.
 To authenticate to metaqrcode you can use two methods : login API or openidconnect.
 In every scenario you (developer) need to register yourself and the app you are developing on metaqrcode openidconnect server.
 Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to register yourself and your app. After client (app) registration you will obtain a client_id to use in login API.
 
-###Get the metaqrcode session token###
+#### Get the metaqrcode session token ####
+
 	// 
 	// logging in using REST API
 	//
@@ -114,7 +121,7 @@ Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to regist
 		  } 
 		}); // send ajax POST request
 
-###Using OpenID Connect###
+#### Using OpenID Connect ####
 
 **authorization_endpoint**: [http://www.metaqrcode.com/oidc/authorize](http://www.metaqrcode.com/oidc/authorize)
 
@@ -124,38 +131,48 @@ For more info see our configuration endpoint: [http://www.metaqrcode.com/oidc/.w
 *We also discourage use of login REST API. The preferred method to login users is openidconnect.*
 You can register user inside metaqrcode using REST API, but you should never save userid and password of your users.*
 
-##Working with catalog##
+# 4. Working with catalog #
+
+Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
+Each XML you want to upload on metaqrcode has to comply with a given XSD (catalog entry).
+You can use an existing XSD or upload your own. Every XSD are shared between all users. It's important to verify if the XSD you need it's already present in catalog before upload a new one.
+It's important to reduce number of similar XSD inside metaqrcode server. This is the reason for wich in XSD you can use import, inclusion, extensions and all standard XSD feature.
+To use that features, you always have to refer to an existing schema by using it's metaqrcode URL. 
+
+## 4.1. upload a new catalog entry (XSD) ##
+
 Suppose you want to upload this XSD
 
     <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:element name="personData" type="personData"/>
       <xs:complexType name="personData">
-    <xs:sequence>
-      <xs:element name="firstName" type="xs:string" minOccurs="1"/>
-      <xs:element name="lastName" type="xs:string" minOccurs="1"/>
-      <xs:element name="sex" type="sex" minOccurs="1"/>
-      <xs:element name="birthday" type="xs:dateTime" minOccurs="1"/>
-      <xs:element name="birthPlace" type="xs:string" minOccurs="1"/>
-      <xs:element name="citizenship" type="xs:string" minOccurs="1"/>
-      <xs:element name="address" type="xs:string" minOccurs="1"/>
-      <xs:element name="eMail" type="xs:string" minOccurs="1"/>
-      <xs:element name="taxCode" type="xs:string" minOccurs="1"/>
-      <xs:element name="phone" type="xs:string" minOccurs="1"/>
-      <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
+	    <xs:sequence>
+	      <xs:element name="firstName" type="xs:string" minOccurs="1"/>
+	      <xs:element name="lastName" type="xs:string" minOccurs="1"/>
+	      <xs:element name="sex" type="sex" minOccurs="1"/>
+	      <xs:element name="birthday" type="xs:dateTime" minOccurs="1"/>
+	      <xs:element name="birthPlace" type="xs:string" minOccurs="1"/>
+	      <xs:element name="citizenship" type="xs:string" minOccurs="1"/>
+	      <xs:element name="address" type="xs:string" minOccurs="1"/>
+	      <xs:element name="eMail" type="xs:string" minOccurs="1"/>
+	      <xs:element name="taxCode" type="xs:string" minOccurs="1"/>
+	      <xs:element name="phone" type="xs:string" minOccurs="1"/>
+	      <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+	    </xs:sequence>
       </xs:complexType>
       <xs:simpleType name="sex">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="MALE"/>
-      <xs:enumeration value="OTHER"/>
-      <xs:enumeration value="FEMALE"/>
-    </xs:restriction>
+	    <xs:restriction base="xs:string">
+	      <xs:enumeration value="MALE"/>
+	      <xs:enumeration value="OTHER"/>
+	      <xs:enumeration value="FEMALE"/>
+	    </xs:restriction>
       </xs:simpleType>
     </xs:schema>
 
 You can upload it using graphcal interface (our website) or using metaqrcode REST API.
-To upload the XSD you have to : 
+
+#### Using Metaqrcode Website ####
 
 - login to metaqrcode
 - go to catalog 
@@ -165,7 +182,7 @@ To upload the XSD you have to :
 - insert previous XSD in the textarea
 - press upload button
 
-To use metaqrcode REST API you have to (we suppose you use jquery):
+#### Consume Metaqrcode REST API ####
 
 	//
 	// after login we can upload XSD
@@ -197,7 +214,7 @@ To use metaqrcode REST API you have to (we suppose you use jquery):
 			  if (<accessToken>!=null) {
 		              request.setRequestHeader("Authorization", "Bearer "+<accessToken>);
 			  }
-	          },
+	      },
 		  error: function(jqXHR, textStatus, errorThrown) {
 			// error handling 
 		  },
@@ -210,4 +227,180 @@ To use metaqrcode REST API you have to (we suppose you use jquery):
 		  } 
 		});
 	return false;
+
+## 4.2. upload repository entry (XML) referring a catalog entry (XSD) ##
+
+Once uploaded previous catalog entry (XSD) you can upload a new repository entry (XML) using that catalog entry (XSD).
+You have two way to have your repository entry (XML) referring to a catalog entry (XSD) : 
+- specify a default catalog entry in requestRepositoryUpload API
+- refer explicitly to given catalog entries (XSDs) from inside the repository entry (XML)
+In first case you can ONLY specify ONE catalog entry. Your entire XML must comply with that XSD.
+In the second case your XML can refer many catalog entries (XSD). We will now see this case. The first case is shown in "hello world" example.
+Suppose you want to upload this repository entry (XML) : 
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<personData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.metaqrcode/api/c/1">
+	  <firstName>firstName</firstName>
+	  <lastName>lastName</lastName>
+	  <sex>MALE</sex>
+	  <birthday>2001-12-31T12:00:00</birthday>
+	  <birthPlace>birthPlace</birthPlace>
+	  <citizenship>citizenship</citizenship>
+	  <address>address</address>
+	  <eMail>eMail</eMail>
+	  <taxCode>taxCode</taxCode>
+	  <phone>phone</phone>
+	</personData>
+
+In this example you have an XML that refers to previous uploaded XSD : personData.xsd. 
+In the simple example the URL of the previously uploaded XSD is : 
+http://www.metaqrcode/api/c/1
+When you uploaded the catalog entry (XSD), metarcode will return the catalog url : the URL of the uploaded XSD. You have to use this URL inside our XML. 
+To upload this repository entry into metaqrcode you have 2 ways : 
+
+#### Using Metaqrcode Website ####
+
+- login to metaqrcode
+- search in metaqrcode catalog for personData.xsd (previously uploaded XSD) and copy the catalog URL
+- go to uplaod xml
+- DO NOT specify the default catalog URL 
+- insert previous XML in the textarea (verify and correct xsi:noNamespaceSchemaLocation attribute)
+- press upload xml
+- you will see the qrcode of the uploaded xml
+- you can use (by ie download) the generated qrcode
+
+#### Consume Metaqrcode REST API ####
+
+- login to metaqrcode
+- search in metaqrcode catalog for personData.xsd and copy the catalog URL
+
+	//
+	// after login we can upload XML
+	//
+	var data = new FormData(); // create the form data to send within subsequent post
+	var requestRepositoryUpload = new Object(); // create the upload xml request 
+	requestRepositoryUpload.defaultCatalog=null; // DO NOT set the catalog URL the xml is referring to
+	requestRepositoryUpload.correlationId=<application correlation id>; // if you need to search this qrcode in the future you can use this (your) correlationId. This is optional
+	data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
+	    type: "application/json"
+	})); // set the request as fitst parameter in the form data
+	var blob = new Blob(<your xml here>], { type: "text/xml"}); // create a Blob with the xml
+	data.append('xml',blob); // set the xml as second parameter in the form data (in alternative you can use data.append('xml',<file field>[0].files[0]);
+	$.ajax({
+		  type: "POST", // method MUST BE post
+		  url: "http://www.metaqrcode.com/api/rest/json/repository/upload", // upload URL
+		  data: data, // formdata object
+		  cache: false, 
+		  contentType: false, 
+		  processData: false,
+		  beforeSend: function (request) {
+			// use one of two methods depending on login type used
+			  if (<sessionToken>!=null) {
+		              request.setRequestHeader("Authorization", "Token "+<sessionToken>);
+			  }
+			  if (<accessToken>!=null) {
+		              request.setRequestHeader("Authorization", "Bearer "+<accessToken>);
+			  }
+	          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+			// error handling 
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) { // verify that the response is ok
+				data.repositoryGet; // the link to get your XML
+				data.qrcodeGet; // *the link to get your QRCODE*   
+			} else {
+				// error handling 
+			}
+		  } 
+		}); // send ajax POST request
+
+As you can see this example is the same of the hello world. In this case we do not specify the requestRepositoryUpload.defaultCatalog because the repository entry (XML) have to specify the catalog entry (XSD) reference. 
+
+** 4.3. complex catalog entry (XSD) **
+
+In catalog entry (XSD) you can use all feature you need. In next example we use include and extension.
+Suppose you want to extend previous XSD in this way : 
+
+	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	  <xs:include schemaLocation="<URL of the personData.xsd XSD>" />
+	  <xs:element name="customer" type="customer"/>
+	  <xs:complexType name="customer">
+	    <xs:complexContent>
+	      <xs:extension base="personData">
+	        <xs:sequence>
+	          <xs:element name="customerId" type="xs:long"/>
+	          <xs:element name="customerType" type="customerType" minOccurs="0"/>
+	          <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+	        </xs:sequence>
+	      </xs:extension>
+	    </xs:complexContent>
+	  </xs:complexType>
+	  <xs:simpleType name="customerType">
+	    <xs:restriction base="xs:string">
+	      <xs:enumeration value="EASY"/>
+	      <xs:enumeration value="PRO"/>
+	      <xs:enumeration value="NORMAL"/>
+	      <xs:enumeration value="TOP"/>
+	    </xs:restriction>
+	  </xs:simpleType>
+	</xs:schema>
+
+You can upload catalog entry (XSD) as shown in 4.1 example. You only have to pay attention to schemaLocation attribute of xs:include tag (by ie you can specity http://www.metaqrcode/api/c/1).
+When yuo refer to a catalogEntry you always need to use the catalog URL.
+
+** 4.4. repository entry (XML) referring different catalog entries (XSDs) **
+
+Suppose you have also this XSD : 
+
+	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	  <xs:element name="intolerances" type="intolerances"/>
+	  <xs:complexType name="intolerances">
+	    <xs:sequence>
+	      <xs:element name="gluten" type="xs:boolean"/>
+	      <xs:element name="milk" type="xs:boolean"/>
+	    </xs:sequence>
+	  </xs:complexType>
+	</xs:schema>
+
+So we can create following XML : 
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="<URL of the customer.xsd XSD>" xmlns:i="<URL of the intolerances.xsd XSD>">
+	  <firstName>firstName</firstName>
+	  <lastName>lastName</lastName>
+	  <sex>MALE</sex>
+	  <birthday>2001-12-31T12:00:00</birthday>
+	  <birthPlace>birthPlace</birthPlace>
+	  <citizenship>citizenship</citizenship>
+	  <address>address</address>
+	  <eMail>eMail</eMail>
+	  <taxCode>taxCode</taxCode>
+	  <phone>phone</phone>
+	  <customerId>1</customerId>
+	  <customerType>PRO</customerType>
+	  <i:intolerances>
+	  	<i:gluten>true</i:gluten>
+	  	<i:milk>false</i:milk>
+	  </i:intolerances>
+	</customer>
+
+You can upload this repository entry (XML) as shown in 4.2, you only have to pay attention to xsi:noNamespaceSchemaLocation and xmlns:i attributes of root tag.
+
+## 5. using qrcode ##
+
+After repository entry (XML) upload you can get the QRCODE corresponding to your xml using data.qrcodeGet (as whown in 1. and in 4.2.).
+QRCODE is generated as image in PNG format. The dimension of the qrcode is based on this http://www.qrstuff.com/blog/2011/11/23/qr-code-minimum-size
+Size of generated qrcode is 210px x 210px because we suppose that you will print it in minimum 300dpi resolution. If you print with this resolution you will have a qrcode of 0,7x0,7 inch (18x18 mm).
+You can reseize the PNG received depending on quality of your print. If you print using a 600dpi resolution, you can print your qrcode using half dimensions (0,35x0,35 inch -> 9x9 mm).
+These are only theoretical calculations, in the real world you have to do some experiment to check best result in your scenario.
+To verify result of your metaqrcode print you can use many app. The first you can use is the zxing mobile app : https://play.google.com/store/apps/details?id=com.google.zxing.client.android
+Zxing is an opensource project (https://github.com/zxing, https://zxingnet.codeplex.com/) available in many technologies (java, .net, etc.).
+
+
+
+
+
 

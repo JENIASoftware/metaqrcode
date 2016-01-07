@@ -8,12 +8,10 @@ Using metaqrcode you can upload your XML document and associate it to a qrcode. 
 As basic example of metaqrcode usage, you can try to upload an helloworld document.
 This is the xml document we want to upload:
  
- 	<pre>   
     <?xml version="1.0" encoding="UTF-8"?>
     <helloWorld>
       <who>Andrea</who>
     </helloWorld>
-    </pre>
 	
 You can upload it using graphcal interface (our website) or using metaqrcode REST API.
 
@@ -30,8 +28,8 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 
 #### Consume Metaqrcode REST API ####
 
-- login to metaqrcode (using login REST API or openidconnect, see below)
-- search in metaqrcode catalog for helloworld.xsd and copy the catalog URL into clipboard
+* login to metaqrcode (using login REST API or openidconnect, see below)
+* search in metaqrcode catalog for helloworld.xsd and copy the catalog URL into clipboard
 	
 	<pre>
     //
@@ -99,6 +97,7 @@ Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to regist
 
 #### Get the metaqrcode session token ####
 
+	<pre>
 	// 
 	// logging in using REST API
 	//
@@ -123,6 +122,7 @@ Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to regist
 			}
 		  } 
 		}); // send ajax POST request
+		</pre>
 
 #### Using OpenID Connect ####
 

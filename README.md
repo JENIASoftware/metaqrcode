@@ -1,5 +1,5 @@
-# metaqrcode getting started #
-------------------------------
+# _metaqrcode getting started_ #
+--------------------------------
 
 
 # 1. hello world! #

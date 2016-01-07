@@ -355,7 +355,7 @@ Suppose you want to extend previous XSD in this way :
 You can upload catalog entry (XSD) as shown in 4.1 example. You only have to pay attention to schemaLocation attribute of xs:include tag (by ie you can specity http://www.metaqrcode/api/c/1).
 When yuo refer to a catalogEntry you always need to use the catalog URL.
 
-** 4.4. repository entry (XML) referring different catalog entries (XSDs) **
+## 4.4. repository entry (XML) referring different catalog entries (XSDs) ##
 
 Suppose you have also this XSD : 
 

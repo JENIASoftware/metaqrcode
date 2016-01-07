@@ -140,7 +140,7 @@ For more info see our configuration endpoint: [http://www.metaqrcode.com/oidc/.w
 *Note that uploaded XML are "property of" the user has uploaded them. We discourage using one generic user and password for all users of your app.*
 
 *We also discourage use of login REST API. The preferred method to login users is openidconnect.*
-You can register user inside metaqrcode using REST API, but you should never save userid and password of your users.*
+*You can register user inside metaqrcode using REST API, but you should never save userid and password of your users.*
 
 # 5. Working with catalog #
 
@@ -410,13 +410,58 @@ You can upload this repository entry (XML) as shown in 4.2, you only have to pay
 
 ## 6. using qrcode ##
 
-After repository entry (XML) upload you can get the QRCODE corresponding to your xml using data.qrcodeGet (as shown in 1. and in 5.2.).
+After repository entry (XML) upload you can get the QRCODE corresponding to your xml using data.qrcodeGet (as shown previously).
 
 QRCODE is generated as image in PNG format. The dimension of the qrcode is based on this http://www.qrstuff.com/blog/2011/11/23/qr-code-minimum-size
 
 Size of generated qrcode is 210px x 210px because we suppose that you will print it in minimum 300dpi resolution. If you print with this resolution you will have a qrcode of 0,7x0,7 inch (18x18 mm). You can resize the PNG received depending on quality of your print. If you print using a 600dpi resolution, you can print your qrcode using half dimensions (0,35x0,35 inch -> 9x9 mm).
 
 These are only theoretical calculations, in the real world you have to do some experiment to check best result in your scenario.To verify result of your metaqrcode print you can use many app. The first you can use is the zxing mobile app : https://play.google.com/store/apps/details?id=com.google.zxing.client.android. Zxing is an opensource project (https://github.com/zxing, https://zxingnet.codeplex.com/) available in many technologies (java, .net, etc.).
+
+## 7. REST API descriptors ##
+
+All metaqrcode REST API can be consumed using JSON or XML.
+
+#### XML URL ####
+
+http://localhost:8080/api/rest/xml/ping?_wadl
+
+http://localhost:8080/api/rest/xml/catalog?_wadl
+
+http://localhost:8080/api/rest/xml/repository?_wadl
+
+http://localhost:8080/api/rest/xml/link?_wadl
+
+http://localhost:8080/api/rest/xml/registration?_wadl
+
+http://localhost:8080/api/rest/xml/login?_wadl
+
+#### JSON URL ####
+
+http://localhost:8080/api/rest/json/ping?_wadl
+
+http://localhost:8080/api/rest/json/catalog?_wadl
+
+http://localhost:8080/api/rest/json/repository?_wadl
+
+http://localhost:8080/api/rest/json/link?_wadl
+
+http://localhost:8080/api/rest/json/registration?_wadl
+
+http://localhost:8080/api/rest/json/login?_wadl
+
+#### other URL ####
+
+http://localhost:8080/api/c/{id}
+http://localhost:8080/api/c/{id}/detail
+http://localhost:8080/api/r/{id}
+http://localhost:8080/api/r/{id}/json
+http://localhost:8080/api/r/{id}/detail
+http://localhost:8080/api/qr/{id}
+http://localhost:8080/api/l/{oc}
+http://localhost:8080/api/l/{oc}/json
+http://localhost:8080/api/l/{oc}/detail
+
 
 
 

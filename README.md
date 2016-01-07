@@ -141,10 +141,10 @@ To use that features, you always have to refer to an existing schema by using it
 
 Suppose you want to upload this XSD
 
-    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-    <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="personData" type="personData"/>
-      <xs:complexType name="personData">
+	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	  <xs:element name="personData" type="personData"/>
+	  <xs:complexType name="personData">
 	    <xs:sequence>
 	      <xs:element name="firstName" type="xs:string" minOccurs="1"/>
 	      <xs:element name="lastName" type="xs:string" minOccurs="1"/>
@@ -158,15 +158,15 @@ Suppose you want to upload this XSD
 	      <xs:element name="phone" type="xs:string" minOccurs="1"/>
 	      <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
 	    </xs:sequence>
-      </xs:complexType>
-      <xs:simpleType name="sex">
+	  </xs:complexType>
+	  <xs:simpleType name="sex">
 	    <xs:restriction base="xs:string">
 	      <xs:enumeration value="MALE"/>
 	      <xs:enumeration value="OTHER"/>
 	      <xs:enumeration value="FEMALE"/>
 	    </xs:restriction>
-      </xs:simpleType>
-    </xs:schema>
+	  </xs:simpleType>
+	</xs:schema>
 
 You can upload it using graphcal interface (our website) or using metaqrcode REST API.
 

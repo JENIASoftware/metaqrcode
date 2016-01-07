@@ -13,7 +13,7 @@ As basic example of metaqrcode usage, you can try to upload an helloworld docume
       <who>Andrea</who>
     </helloWorld>
 	
-You can upload it using graphcal interface (our website) or using metaqrcode REST API.
+You can upload it using graphical interface (our website) or using metaqrcode REST API.
 
 #### Using Metaqrcode Website ####
 
@@ -74,7 +74,12 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
         }); // send ajax POST request
         </pre>
         
-# 2. Basic Concepts #
+# 2. Where to find these examples? #
+
+You can find all examples described in this tutorial here : https://github.com/JENIASoftware/metaqrcode/blob/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp/gettingStarted.html
+You can also find specific examples about REST API in samples contained here : https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp
+
+# 3. Basic Concepts #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 
@@ -86,7 +91,7 @@ When you upload an XML you have to specify one or more XSD. The XML have to comp
 
 That's all relevants concepts of metaqrcode. 
 
-# 3. Authentication/Authorization #
+# 4. Authentication/Authorization #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 
@@ -136,17 +141,17 @@ For more info see our configuration endpoint: [http://www.metaqrcode.com/oidc/.w
 *We also discourage use of login REST API. The preferred method to login users is openidconnect.*
 You can register user inside metaqrcode using REST API, but you should never save userid and password of your users.*
 
-# 4. Working with catalog #
+# 5. Working with catalog #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 
 Each XML you want to upload on metaqrcode has to comply with a given XSD (catalog entry).You can use an existing XSD or upload your own. Every XSD are shared between all users. It's important to verify if the XSD you need it's already present in catalog before upload a new one.
 
-It's important to reduce number of similar XSD inside metaqrcode server. This is the reason for wich in XSD you can use import, inclusion, extensions and all standard XSD feature.
+It's important to reduce number of similar XSD inside metaqrcode server. This is the reason for which in XSD you can use import, inclusion, extensions and all standard XSD feature.
 
 To use that features, you always have to refer to an existing schema by using it's metaqrcode URL. 
 
-## 4.1. upload a new catalog entry (XSD) ##
+## 5.1. upload a new catalog entry (XSD) ##
 
 Suppose you want to upload this XSD
 
@@ -177,7 +182,7 @@ Suppose you want to upload this XSD
 	  </xs:simpleType>
 	</xs:schema>
 
-You can upload it using graphcal interface (our website) or using metaqrcode REST API.
+You can upload it using graphical interface (our website) or using metaqrcode REST API.
 
 #### Using Metaqrcode Website ####
 
@@ -235,7 +240,7 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 		});
 	return false;
 
-## 4.2. upload repository entry (XML) referring a catalog entry (XSD) ##
+## 5.2. upload repository entry (XML) referring a catalog entry (XSD) ##
 
 Once uploaded previous catalog entry (XSD) you can upload a new repository entry (XML) using that catalog entry (XSD).
 
@@ -330,7 +335,7 @@ When you uploaded the catalog entry (XSD), metarcode will return the catalog url
 
 As you can see this example is the same of the hello world. In this case we do not specify the requestRepositoryUpload.defaultCatalog because the repository entry (XML) have to specify the catalog entry (XSD) reference. 
 
-## 4.3. complex catalog entry (XSD) ##
+## 5.3. complex catalog entry (XSD) ##
 
 In catalog entry (XSD) you can use all feature you need. In next example we use include and extension.
 Suppose you want to extend previous XSD in this way : 
@@ -360,10 +365,10 @@ Suppose you want to extend previous XSD in this way :
 	  </xs:simpleType>
 	</xs:schema>
 
-You can upload catalog entry (XSD) as shown in 4.1 example. You only have to pay attention to schemaLocation attribute of xs:include tag (by ie you can specity http://www.metaqrcode/api/c/1).
-When yuo refer to a catalogEntry you always need to use the catalog URL.
+You can upload catalog entry (XSD) as shown in 4.1 example. You only have to pay attention to schemaLocation attribute of xs:include tag (by ie you can specify http://www.metaqrcode/api/c/1).
+When you refer to a catalogEntry you always need to use the catalog URL.
 
-## 4.4. repository entry (XML) referring different catalog entries (XSDs) ##
+## 5.4. repository entry (XML) referring different catalog entries (XSDs) ##
 
 Suppose you have also this XSD : 
 
@@ -402,13 +407,13 @@ So we can create following XML :
 
 You can upload this repository entry (XML) as shown in 4.2, you only have to pay attention to xsi:noNamespaceSchemaLocation and xmlns:i attributes of root tag.
 
-## 5. using qrcode ##
+## 6. using qrcode ##
 
-After repository entry (XML) upload you can get the QRCODE corresponding to your xml using data.qrcodeGet (as whown in 1. and in 4.2.).
+After repository entry (XML) upload you can get the QRCODE corresponding to your xml using data.qrcodeGet (as shown in 1. and in 5.2.).
 
 QRCODE is generated as image in PNG format. The dimension of the qrcode is based on this http://www.qrstuff.com/blog/2011/11/23/qr-code-minimum-size
 
-Size of generated qrcode is 210px x 210px because we suppose that you will print it in minimum 300dpi resolution. If you print with this resolution you will have a qrcode of 0,7x0,7 inch (18x18 mm). You can reseize the PNG received depending on quality of your print. If you print using a 600dpi resolution, you can print your qrcode using half dimensions (0,35x0,35 inch -> 9x9 mm).
+Size of generated qrcode is 210px x 210px because we suppose that you will print it in minimum 300dpi resolution. If you print with this resolution you will have a qrcode of 0,7x0,7 inch (18x18 mm). You can resize the PNG received depending on quality of your print. If you print using a 600dpi resolution, you can print your qrcode using half dimensions (0,35x0,35 inch -> 9x9 mm).
 
 These are only theoretical calculations, in the real world you have to do some experiment to check best result in your scenario.To verify result of your metaqrcode print you can use many app. The first you can use is the zxing mobile app : https://play.google.com/store/apps/details?id=com.google.zxing.client.android. Zxing is an opensource project (https://github.com/zxing, https://zxingnet.codeplex.com/) available in many technologies (java, .net, etc.).
 

@@ -265,9 +265,7 @@ Suppose you want to upload this repository entry (XML) :
 	</personData>
 
 In this example you have an XML that refers to previous uploaded XSD : personData.xsd. 
-In the simple example the URL of the previously uploaded XSD is : 
-
-http://www.metaqrcode/api/c/1
+In the simple example the URL of the previously uploaded XSD is : http://www.metaqrcode/api/c/1
 
 When you uploaded the catalog entry (XSD), metarcode will return the catalog url : the URL of the uploaded XSD. You have to use this URL inside our XML. To upload this repository entry into metaqrcode you have 2 ways : 
 

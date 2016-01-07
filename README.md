@@ -97,7 +97,6 @@ Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to regist
 
 #### Get the metaqrcode session token ####
 
-	<pre>
 	// 
 	// logging in using REST API
 	//
@@ -122,7 +121,6 @@ Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to regist
 			}
 		  } 
 		}); // send ajax POST request
-		</pre>
 
 #### Using OpenID Connect ####
 
@@ -177,13 +175,13 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 
 #### Using Metaqrcode Website ####
 
-- login to metaqrcode
-- go to catalog 
-- press up arrow (upload new catalog)
-- set a name for your XSD (by ie personData.xsd)
-- set a description for your XSD
-- insert previous XSD in the textarea
-- press upload button
+* login to metaqrcode
+* go to catalog 
+* press up arrow (upload new catalog)
+* set a name for your XSD (by ie personData.xsd)
+* set a description for your XSD
+* insert previous XSD in the textarea
+* press upload button
 
 #### Consume Metaqrcode REST API ####
 
@@ -235,12 +233,15 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 
 Once uploaded previous catalog entry (XSD) you can upload a new repository entry (XML) using that catalog entry (XSD).
 You have two way to have your repository entry (XML) referring to a catalog entry (XSD) : 
-- specify a default catalog entry in requestRepositoryUpload API
-- refer explicitly to given catalog entries (XSDs) from inside the repository entry (XML)
+
+* specify a default catalog entry in requestRepositoryUpload API
+* refer explicitly to given catalog entries (XSDs) from inside the repository entry (XML)
+
 In first case you can ONLY specify ONE catalog entry. Your entire XML must comply with that XSD.
 In the second case your XML can refer many catalog entries (XSD). We will now see this case. The first case is shown in "hello world" example.
 Suppose you want to upload this repository entry (XML) : 
 
+<pre>
 	<?xml version="1.0" encoding="UTF-8"?>
 	<personData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.metaqrcode/api/c/1">
 	  <firstName>firstName</firstName>
@@ -254,6 +255,7 @@ Suppose you want to upload this repository entry (XML) :
 	  <taxCode>taxCode</taxCode>
 	  <phone>phone</phone>
 	</personData>
+</pre>
 
 In this example you have an XML that refers to previous uploaded XSD : personData.xsd. 
 In the simple example the URL of the previously uploaded XSD is : 

@@ -77,6 +77,7 @@ You can upload it using graphical interface (our website) or using metaqrcode RE
 # 2. Where to find these examples? #
 
 You can find all examples described in this tutorial here : https://github.com/JENIASoftware/metaqrcode/blob/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp/gettingStarted.html
+
 You can also find specific examples about REST API in samples contained here : https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp
 
 # 3. Basic Concepts #

@@ -322,7 +322,7 @@ To upload this repository entry into metaqrcode you have 2 ways :
 
 As you can see this example is the same of the hello world. In this case we do not specify the requestRepositoryUpload.defaultCatalog because the repository entry (XML) have to specify the catalog entry (XSD) reference. 
 
-** 4.3. complex catalog entry (XSD) **
+## 4.3. complex catalog entry (XSD) ##
 
 In catalog entry (XSD) you can use all feature you need. In next example we use include and extension.
 Suppose you want to extend previous XSD in this way : 

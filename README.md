@@ -7,24 +7,26 @@ metaqrcode getting started
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 As basic example of metaqrcode usage, you can try to upload an helloworld document.
 This is the xml document we want to upload:
-    
+ 
+ 	<pre>   
     <?xml version="1.0" encoding="UTF-8"?>
     <helloWorld>
       <who>Andrea</who>
     </helloWorld>
+    </pre>
 	
 You can upload it using graphcal interface (our website) or using metaqrcode REST API.
 
 #### Using Metaqrcode Website ####
 
-- login to metaqrcode
-- search in metaqrcode catalog for helloworld.xsd and copy the catalog URL
-- go to uplaod xml
-- specify the default catalog URL with the url of the catalog of helloworld.xsd
-- insert previous XML in the textarea
-- press upload xml
-- you will see the qrcode of the uploaded xml
-- you can use the generated qrcode (by ie download) 
+* login to metaqrcode
+* search in metaqrcode catalog for helloworld.xsd and copy the catalog URL
+* go to uplaod xml
+* specify the default catalog URL with the url of the catalog of helloworld.xsd
+* insert previous XML in the textarea
+* press upload xml
+* you will see the qrcode of the uploaded xml
+* you can use the generated qrcode (by ie download) 
 
 #### Consume Metaqrcode REST API ####
 

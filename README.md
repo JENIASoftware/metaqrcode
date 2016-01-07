@@ -6,9 +6,7 @@ metaqrcode getting started
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 
-As basic example of metaqrcode usage, you can try to upload an helloworld document.
-
-This is the xml document we want to upload:
+As basic example of metaqrcode usage, you can try to upload an helloworld document.This is the xml document we want to upload:
  
     <?xml version="1.0" encoding="UTF-8"?>
     <helloWorld>
@@ -80,15 +78,11 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 
-An XML document into metaqrcode is called Repository Entry. In metaqrcode the repository is the container of all repository entry, then the repository is the container of all XML documents. 
-
-Each XML document inside metaqrcode has to be associated with at least an XSD. 
+An XML document into metaqrcode is called Repository Entry. In metaqrcode the repository is the container of all repository entry, then the repository is the container of all XML documents. Each XML document inside metaqrcode has to be associated with at least an XSD. 
 
 In metaqrcode an XSD is called Catalog Entry. The Catalog is the container of all XSD.
 
-When you upload an XML you have to specify one or more XSD. The XML have to comply with the given XSD. Metaqrcode will check compliance during upload phase.
-
-When you upload an XML you can specify one XSD using API (outside the XML) or you can specify one or more XSD inside the XML document.
+When you upload an XML you have to specify one or more XSD. The XML have to comply with the given XSD. Metaqrcode will check compliance during upload phase.When you upload an XML you can specify one XSD using API (outside the XML) or you can specify one or more XSD inside the XML document.
 
 That's all relevants concepts of metaqrcode. 
 
@@ -138,15 +132,18 @@ Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to regist
 For more info see our configuration endpoint: [http://www.metaqrcode.com/oidc/.well-known/openid-configuration](http://www.metaqrcode.com/oidc/.well-known/openid-configuration)
 
 *Note that uploaded XML are "property of" the user has uploaded them. We discourage using one generic user and password for all users of your app.
+
 *We also discourage use of login REST API. The preferred method to login users is openidconnect.*
 You can register user inside metaqrcode using REST API, but you should never save userid and password of your users.*
 
 # 4. Working with catalog #
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
-Each XML you want to upload on metaqrcode has to comply with a given XSD (catalog entry).
-You can use an existing XSD or upload your own. Every XSD are shared between all users. It's important to verify if the XSD you need it's already present in catalog before upload a new one.
+
+Each XML you want to upload on metaqrcode has to comply with a given XSD (catalog entry).You can use an existing XSD or upload your own. Every XSD are shared between all users. It's important to verify if the XSD you need it's already present in catalog before upload a new one.
+
 It's important to reduce number of similar XSD inside metaqrcode server. This is the reason for wich in XSD you can use import, inclusion, extensions and all standard XSD feature.
+
 To use that features, you always have to refer to an existing schema by using it's metaqrcode URL. 
 
 ## 4.1. upload a new catalog entry (XSD) ##
@@ -241,13 +238,16 @@ You can upload it using graphcal interface (our website) or using metaqrcode RES
 ## 4.2. upload repository entry (XML) referring a catalog entry (XSD) ##
 
 Once uploaded previous catalog entry (XSD) you can upload a new repository entry (XML) using that catalog entry (XSD).
+
 You have two way to have your repository entry (XML) referring to a catalog entry (XSD) : 
 
 * specify a default catalog entry in requestRepositoryUpload API
 * refer explicitly to given catalog entries (XSDs) from inside the repository entry (XML)
 
 In first case you can ONLY specify ONE catalog entry. Your entire XML must comply with that XSD.
+
 In the second case your XML can refer many catalog entries (XSD). We will now see this case. The first case is shown in "hello world" example.
+
 Suppose you want to upload this repository entry (XML) : 
 
 	<?xml version="1.0" encoding="UTF-8"?>
@@ -266,9 +266,10 @@ Suppose you want to upload this repository entry (XML) :
 
 In this example you have an XML that refers to previous uploaded XSD : personData.xsd. 
 In the simple example the URL of the previously uploaded XSD is : 
+
 http://www.metaqrcode/api/c/1
-When you uploaded the catalog entry (XSD), metarcode will return the catalog url : the URL of the uploaded XSD. You have to use this URL inside our XML. 
-To upload this repository entry into metaqrcode you have 2 ways : 
+
+When you uploaded the catalog entry (XSD), metarcode will return the catalog url : the URL of the uploaded XSD. You have to use this URL inside our XML. To upload this repository entry into metaqrcode you have 2 ways : 
 
 #### Using Metaqrcode Website ####
 

@@ -9,8 +9,10 @@ This is the xml document we want to upload:
     <helloWorld>
       <who>Andrea</who>
     </helloWorld>
+    
 You can upload it using graphcal interface (our website) or using metaqrcode REST API.
-To upload the helloworld xml document you have to :
+
+## Using Metaqrcode Website ##
 
 - login to metaqrcode
 - search in metaqrcode catalog for helloworld.xsd and copy the catalog URL
@@ -21,10 +23,10 @@ To upload the helloworld xml document you have to :
 - you will see the qrcode of the uploaded xml
 - you can use the generated qrcode (by ie download) 
 
-###Consume Metaqrcode REST API ###
+## Consume Metaqrcode REST API ##
+
 - login to metaqrcode (using login REST API or openidconnect, see below)
 - search in metaqrcode catalog for helloworld.xsd and copy the catalog URL
-
 
 	    // after login we can upload XML
     	//
@@ -45,14 +47,14 @@ To upload the helloworld xml document you have to :
     		  contentType: false, 
     		  processData: false,
     		  beforeSend: function (request) {
-    			// use one of two methods depending on login type used
-    			  if (<sessionToken>!=null) {
-    		  request.setRequestHeader("Authorization", "Token "+<sessionToken>);
-    			  }
-    			  if (<accessToken>!=null) {
-    		  request.setRequestHeader("Authorization", "Bearer "+<accessToken>);
-    			  }
-    	  },
+	    			// use one of two methods depending on login type used
+	    			  if (<sessionToken>!=null) {
+	    		  request.setRequestHeader("Authorization", "Token "+<sessionToken>);
+	    			  }
+	    			  if (<accessToken>!=null) {
+	    		  request.setRequestHeader("Authorization", "Bearer "+<accessToken>);
+	    			  }
+	    	  },
     		  error: function(jqXHR, textStatus, errorThrown) {
     			// error handling 
     		  },

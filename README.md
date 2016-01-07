@@ -263,20 +263,21 @@ To upload this repository entry into metaqrcode you have 2 ways :
 
 #### Using Metaqrcode Website ####
 
-- login to metaqrcode
-- search in metaqrcode catalog for personData.xsd (previously uploaded XSD) and copy the catalog URL
-- go to uplaod xml
-- DO NOT specify the default catalog URL 
-- insert previous XML in the textarea (verify and correct xsi:noNamespaceSchemaLocation attribute)
-- press upload xml
-- you will see the qrcode of the uploaded xml
-- you can use (by ie download) the generated qrcode
+* login to metaqrcode
+* search in metaqrcode catalog for personData.xsd (previously uploaded XSD) and copy the catalog URL
+* go to uplaod xml
+* DO NOT specify the default catalog URL 
+* insert previous XML in the textarea (verify and correct xsi:noNamespaceSchemaLocation attribute)
+* press upload xml
+* you will see the qrcode of the uploaded xml
+* you can use (by ie download) the generated qrcode
 
 #### Consume Metaqrcode REST API ####
 
-- login to metaqrcode
-- search in metaqrcode catalog for personData.xsd and copy the catalog URL
+* login to metaqrcode
+* search in metaqrcode catalog for personData.xsd and copy the catalog URL
 
+<pre>
 	//
 	// after login we can upload XML
 	//
@@ -317,6 +318,7 @@ To upload this repository entry into metaqrcode you have 2 ways :
 			}
 		  } 
 		}); // send ajax POST request
+</pre>
 
 As you can see this example is the same of the hello world. In this case we do not specify the requestRepositoryUpload.defaultCatalog because the repository entry (XML) have to specify the catalog entry (XSD) reference. 
 

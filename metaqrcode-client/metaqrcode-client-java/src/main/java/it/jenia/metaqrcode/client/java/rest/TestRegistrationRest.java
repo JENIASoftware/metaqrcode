@@ -24,7 +24,8 @@ import it.jenia.metaqrcode.dto.registration.ResponseUnregister;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestRegistrationRest extends TestRest {
 
-	protected static final String EMAIL = "bbb@bbb.bb";
+	private static final String NICKNAME = "ccc";
+	protected static final String EMAIL = "ccc@bbb.bb";
 
 	/**
 	 *  to run this testcase you have to set 
@@ -38,7 +39,7 @@ public class TestRegistrationRest extends TestRest {
 			RequestRegistrationPrepare req = new RequestRegistrationPrepare();
 			req.setEmail(EMAIL);
 			req.setPassword(PASSWORD);
-			req.setNickName("hhh");
+			req.setNickName(NICKNAME);
 			req.setFirstName("ccc");
 			req.setLastName("ddd");
 			req.setAddress("eee");
@@ -74,7 +75,7 @@ public class TestRegistrationRest extends TestRest {
 		{
 			RequestRegistrationUpdate req = new RequestRegistrationUpdate();
 			req.setEmail(EMAIL);
-			req.setNickName("hhh");
+			req.setNickName(NICKNAME);
 			req.setFirstName("ddd");
 			req.setLastName("ccc");
 			req.setAddress("eee");

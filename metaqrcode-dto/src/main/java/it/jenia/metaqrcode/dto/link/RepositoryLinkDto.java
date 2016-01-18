@@ -1,11 +1,13 @@
 package it.jenia.metaqrcode.dto.link;
 
 import it.jenia.metaqrcode.dto.Dto;
+import it.jenia.metaqrcode.dto.adapter.AutotrimAdapter;
 
 import java.math.BigInteger;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +30,7 @@ public class RepositoryLinkDto extends Dto {
 
 	@Getter
 	@Setter
+	@XmlJavaTypeAdapter(AutotrimAdapter.class)
 	/**
 	 * other code that is referring to the repository entry (XML)
 	 */
@@ -35,6 +38,7 @@ public class RepositoryLinkDto extends Dto {
 
 	@Getter
 	@Setter
+	@XmlJavaTypeAdapter(AutotrimAdapter.class)
 	/**
 	 * url of the link to retrieve it on metaqrcode server
 	 */

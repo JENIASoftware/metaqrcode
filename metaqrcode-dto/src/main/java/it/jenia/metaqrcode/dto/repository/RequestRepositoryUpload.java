@@ -22,6 +22,7 @@ public class RequestRepositoryUpload extends Request {
 	
 	@Getter
 	@Setter
+	@XmlJavaTypeAdapter(AutotrimAdapter.class)
 	/**
 	 * you can specify a default catalog entry (XSD) for the uploading repository entry (XML).
 	 * In alternative you can insert catalog entry (XSD) references inside the repository entry (XML) 
@@ -36,5 +37,13 @@ public class RequestRepositoryUpload extends Request {
 	 * Metaqrcode server will bind it to the repository entry (XML) for further processing
 	 */
 	private String correlationId;
+
+	@Getter
+	@Setter
+	/**
+	 * you can specify if this repository entry (XML) is private (visible only to you).
+	 * Metaqrcode server will bind it to the repository entry (XML) for further processing
+	 */
+	private boolean personal;
 
 }

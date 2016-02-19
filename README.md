@@ -1,3 +1,9 @@
+# _what is this?_ #
+--------------------------------
+
+This is opensource client API for metaqrode ( https://www.metaqrcode.com ).
+You can find here examples, piece of code, prototypes, and many other material
+
 # _metaqrcode getting started_ #
 --------------------------------
 

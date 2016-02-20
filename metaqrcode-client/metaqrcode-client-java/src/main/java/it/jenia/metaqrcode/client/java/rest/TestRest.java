@@ -51,11 +51,11 @@ public abstract class TestRest {
 
 	public TestRest() {
 		super();
-		host = "localhost";
-		port = 8080;
+		host = "www.metaqrcode.com";
+		port = 443;
 		user = "dummy";
 		password = "disabled";
-		scheme = "http";
+		scheme = "https";
 		contextRoot = "/api";
 	}
 	

@@ -19,7 +19,7 @@ function test2() {
 	pingRequest.from="js client";
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/ping/nowAnonymous",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/ping/nowAnonymous",
 		  data: JSON.stringify(pingRequest),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -47,7 +47,7 @@ function test3() {
 	pingRequest.from="js client";
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/ping/failAnonymous",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/ping/failAnonymous",
 		  data: JSON.stringify(pingRequest),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -73,7 +73,7 @@ function test3() {
 function test4() {
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/xml/ping/nowAnonymous",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/xml/ping/nowAnonymous",
 		  data: "<requestPingAnonymous><from>js client</from></requestPingAnonymous>",
 		  dataType: "xml",
 		  contentType: "application/xml; charset=utf-8",
@@ -100,7 +100,7 @@ function test4() {
 function test5() {
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/xml/ping/failAnonymous",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/xml/ping/failAnonymous",
 		  data: "<requestPingAnonymous><from>js client</from></requestPingAnonymous>",
 		  dataType: "xml",
 		  contentType: "application/xml; charset=utf-8",
@@ -128,7 +128,7 @@ function test6() {
 	pingRequest.from="js client";
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/ping/nowAuthenticated",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/ping/nowAuthenticated",
 		  data: JSON.stringify(pingRequest),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -156,7 +156,7 @@ function test7() {
 	pingRequest.from="js client";
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/ping/failAuthenticated",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/ping/failAuthenticated",
 		  data: JSON.stringify(pingRequest),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",

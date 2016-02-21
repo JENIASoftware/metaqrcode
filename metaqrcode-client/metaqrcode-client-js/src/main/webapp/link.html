@@ -17,7 +17,7 @@ function createLink() {
 	requestLinkCreate.otherCode=$('#otherCode').val();
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/link/create",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/link/create",
 		  data: JSON.stringify(requestLinkCreate),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -48,7 +48,7 @@ function deleteLink() {
 	requestLinkDelete.otherCode=$('#otherCode').val();
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/link/delete",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/link/delete",
 		  data: JSON.stringify(requestLinkDelete),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -76,7 +76,7 @@ function downloadLink() {
 	requestLinkDownload.otherCode=$('#otherCode').val();
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/link/download",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/link/download",
 		  data: JSON.stringify(requestLinkDownload),
 //		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",

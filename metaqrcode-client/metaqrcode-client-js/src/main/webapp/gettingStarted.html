@@ -24,7 +24,7 @@ function login() {
 	var ret = false;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/login/login",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/login/login",
 		  data: JSON.stringify(requestLogin),
 		  dataType: "json",
 		  async: false,
@@ -50,7 +50,7 @@ function findCatalogUrl(catalogName) {
 	var ret = null;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/search",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/search",
 		  data: JSON.stringify(requestCatalogSearch),
 		  dataType: "json",
 		  async: false,
@@ -103,7 +103,7 @@ function test1() {
 	data.append('xml',blob);
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/upload",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/upload",
 		  data: data,
 		  cache: false,
 		  contentType: false,
@@ -141,7 +141,7 @@ function test3() {
 	requestLogin.password=password;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/login/login",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/login/login",
 		  data: JSON.stringify(requestLogin),
 		  dataType: "json",
 		  async: false,
@@ -209,7 +209,7 @@ function test41() {
 	data.append('xsd',blob);
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/upload",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/upload",
 		  data: data,
 		  cache: false,
 		  contentType: false,
@@ -272,7 +272,7 @@ function test42() {
 	data.append('xml',blob);
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/upload",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/upload",
 		  data: data,
 		  cache: false,
 		  contentType: false,

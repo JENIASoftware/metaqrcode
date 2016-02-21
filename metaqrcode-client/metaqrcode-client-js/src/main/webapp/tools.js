@@ -1,6 +1,6 @@
 // GOBAL variables
-var SERVER = 'localhost'; // server to connect to
-var PORT = 8080; // port to connect to
+var SERVER = 'www.metaqrcode.com'; // server to connect to
+var PORT = 443; // port to connect to
 var email = "aaa@jenia.it"; // email of the user 
 var password = "aaaaaa"; // password of the user
 var nickName = "nickName1";  // nickname of the user
@@ -42,7 +42,7 @@ function checkRegistrationExists() {
 	var ret = false;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/exists",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/registration/exists",
 		  data: JSON.stringify(requestRegistrationExists),
 		  dataType: "json",
 		  async: false,
@@ -79,7 +79,7 @@ function registrationPrepare() {
 	requestRegistrationPrepare.preferredLanguage="it";
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/prepare",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/registration/prepare",
 		  data: JSON.stringify(requestRegistrationPrepare),
 		  dataType: "json",
 		  async: false,
@@ -114,7 +114,7 @@ function registrationConfirm() {
 	requestRegistrationConfirm.registrationConfirmationCode="000000";
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/registration/confirm",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/registration/confirm",
 		  data: JSON.stringify(requestRegistrationConfirm),
 		  dataType: "json",
 		  async: false,
@@ -139,7 +139,7 @@ function login() {
 	requestLogin.password=password;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/login/login",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/login/login",
 		  data: JSON.stringify(requestLogin),
 		  dataType: "json",
 		  async: false,

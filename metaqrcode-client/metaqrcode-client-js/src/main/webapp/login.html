@@ -19,7 +19,7 @@ function login() {
 	requestLogin.clientId=$('#clientId').val();
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/login/login",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/login/login",
 		  data: JSON.stringify(requestLogin),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -47,7 +47,7 @@ function keepAlive() {
 	var requestKeepAlive = new Object();
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/login/keepAlive",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/login/keepAlive",
 		  data: JSON.stringify(requestKeepAlive),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",

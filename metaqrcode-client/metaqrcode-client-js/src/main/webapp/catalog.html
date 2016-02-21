@@ -26,7 +26,7 @@ function uploadCatalog() {
 	data.append('xsd',$('#xsd')[0].files[0]);
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/upload",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/upload",
 		  data: data,
 		  cache: false,
 		  contentType: false,
@@ -61,7 +61,7 @@ function searchCatalog() {
 	requestCatalogSearch.rowPerPage=50;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/search",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/search",
 		  data: JSON.stringify(requestCatalogSearch),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -135,7 +135,7 @@ function deleteCatalog(id) {
 	requestCatalogDelete.id=id;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/delete",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/delete",
 		  data: JSON.stringify(requestCatalogDelete),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -166,7 +166,7 @@ function voteCatalog(id) {
 	requestCatalogVote.note="note for this voting";
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/vote",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/vote",
 		  data: JSON.stringify(requestCatalogVote),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -196,7 +196,7 @@ function downloadCatalog(id) {
 	requestCatalogDownload.id=id;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/catalog/download",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/download",
 		  data: JSON.stringify(requestCatalogDownload),
 //		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",

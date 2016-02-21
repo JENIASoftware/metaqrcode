@@ -26,7 +26,7 @@ function uploadRepositoryFile() {
 	data.append('xml',$('#xml')[0].files[0]);
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/upload",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/upload",
 		  data: data,
 		  cache: false,
 		  contentType: false,
@@ -73,7 +73,7 @@ function uploadRepositoryTextArea() {
 	data.append('xml',blob);
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/upload",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/upload",
 		  data: data,
 		  cache: false,
 		  contentType: false,
@@ -121,7 +121,7 @@ function updateRepository() {
 	data.append('xml',$('#xml')[0].files[0]);
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/update",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/update",
 		  data: data,
 		  cache: false,
 		  contentType: false,
@@ -158,7 +158,7 @@ function deleteRepository(xmlId) {
 	requestRepositoryDelete.id=currentXML.id;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/delete",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/delete",
 		  data: JSON.stringify(requestRepositoryDelete),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -198,7 +198,7 @@ function downloadRepository(xmlId) {
 	requestRepositoryDownload.id=currentXML.id;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/download",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/download",
 		  data: JSON.stringify(requestRepositoryDownload),
 //		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -235,7 +235,7 @@ function downloadRepositoryJson(xmlId) {
 	requestRepositoryDownload.id=currentXML.id;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/downloadAsJson",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/downloadAsJson",
 		  data: JSON.stringify(requestRepositoryDownload),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -266,7 +266,7 @@ function searchRepository() {
 	requestRepositorySearch.rowPerPage=50;
 	$.ajax({
 		  type: "POST",
-		  url: "http://"+SERVER+":"+PORT+"/api/rest/json/repository/search",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/search",
 		  data: JSON.stringify(requestRepositorySearch),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",

@@ -213,14 +213,14 @@ You can upload it using graphical interface (our website) or using metaqrcode RE
 	// we have to send the json request and the XSD, to do that we have to create a formdata
 	var data = new FormData();
 	var requestCatalogUpload = new Object();
-	requestCatalogUpload.name=<name of the catalog to be uploaded>;
-	requestCatalogUpload.description=<description of the catalog>;
+	requestCatalogUpload.name=%%name of the catalog to be uploaded%%;
+	requestCatalogUpload.description=%%description of the catalog%%;
 	// in the form we put two attribute : request -> the json request
 	data.append('request', new Blob([JSON.stringify(requestCatalogUpload)], {
 	    type: "application/json"
 	}));
 	// and xsd -> the catalog entry (XSD) to be uploaded
-	var blob = new Blob(<your xsd here>], { type: "text/xml"}); // create a Blob with the xsd
+	var blob = new Blob(%%your xsd here%%], { type: "text/xml"}); // create a Blob with the xsd
 	data.append('xsd',blob); // set the xsd as second parameter in the form data (in alternative you can use data.append('xsd',<file field>[0].files[0]);	
 	$.ajax({
 		  type: "POST", // MUST BE POST
@@ -231,11 +231,11 @@ You can upload it using graphical interface (our website) or using metaqrcode RE
 		  processData: false,
 		  beforeSend: function (request) {
 			// use one of two methods depending on login type used
-			  if (<sessionToken>!=null) {
-		              request.setRequestHeader("Authorization", "Token "+<sessionToken>);
+			  if (%%sessionToken%%!=null) {
+		              request.setRequestHeader("Authorization", "Token "+%%sessionToken%%);
 			  }
-			  if (<accessToken>!=null) {
-		              request.setRequestHeader("Authorization", "Bearer "+<accessToken>);
+			  if (%%accessToken%%!=null) {
+		              request.setRequestHeader("Authorization", "Bearer "+%%accessToken%%);
 			  }
 	      },
 		  error: function(jqXHR, textStatus, errorThrown) {

@@ -120,9 +120,9 @@ Go to [https://www.metaqrcode.com/oidc](https://www.metaqrcode.com/oidc) to regi
 	// logging in using REST API
 	//
 	var requestLogin = new Object(); // create the login request object
-	requestLogin.email=<the email address>; // set the userId (email) to be logged in. The user must be registered into metaqrcode
-	requestLogin.password=<password>; // set the user password
-	requestLogin.clientId=<client_id>; // client_id of the app is using metaqrcode
+	requestLogin.email=%%the email address%%; // set the userId (email) to be logged in. The user must be registered into metaqrcode
+	requestLogin.password=%%password%%; // set the user password
+	requestLogin.clientId=%%client_id%%; // client_id of the app is using metaqrcode
 	$.ajax({
 		  type: "POST", // MUST BE POST
 		  url: "https://www.metaqrcode.com/api/rest/json/login/login", // login URL, will be https
@@ -198,8 +198,8 @@ You can upload it using graphical interface (our website) or using metaqrcode RE
 #### Using Metaqrcode Website ####
 
 * login to metaqrcode
-* go to catalog 
-* press up arrow (upload new catalog)
+* go to XSD catalog 
+* press upload button
 * set a name for your XSD (by ie personData.xsd)
 * set a description for your XSD
 * insert previous XSD in the textarea

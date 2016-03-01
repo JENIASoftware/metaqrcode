@@ -18,6 +18,7 @@ function uploadRepositoryFile() {
 	var requestRepositoryUpload = new Object();
 	requestRepositoryUpload.defaultCatalog=$('#defaultCatalog').val();
 	requestRepositoryUpload.correlationId=$('#correlationId').val();
+	requestRepositoryUpload.personal=false;
 	// in the form we put two attribute : request -> the json request
 	data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
 	    type: "application/json"

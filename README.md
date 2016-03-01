@@ -44,14 +44,14 @@ You can upload it using graphical interface (our website) or using metaqrcode RE
     //
     var data = new FormData(); // create the form data to send within subsequent post
     var requestRepositoryUpload = new Object(); // create the upload xml request 
-    requestRepositoryUpload.defaultCatalog=<<catalog url>>; // set the catalog URL the xml is referring to
-    requestRepositoryUpload.correlationId=<<application correlation id>>; // if you need to search this qrcode in the future you can use this (your) correlationId. This is optional
+    requestRepositoryUpload.defaultCatalog=%%catalog url%%; // set the catalog URL the xml is referring to
+    requestRepositoryUpload.correlationId=%%application correlation id%%; // if you need to search this qrcode in the future you can use this (your) correlationId. This is optional
     requestRepositoryUpload.personal=false; // is this XML repository entry private? 
     data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
         type: "application/json"
     })); // set the request as fitst parameter in the form data
-    var blob = new Blob(<<your xml here>>], { type: "text/xml"}); // create a Blob with the xml
-    data.append('xml',blob); // set the xml as second parameter in the form data (in alternative you can use data.append('xml',<<file field>>[0].files[0]);
+    var blob = new Blob(%%your xml here%%], { type: "text/xml"}); // create a Blob with the xml
+    data.append('xml',blob); // set the xml as second parameter in the form data (in alternative you can use data.append('xml',%%file field%%[0].files[0]);
     $.ajax({
           type: "POST", // method MUST BE post
           url: "http://www.metaqrcode.com/api/rest/json/repository/upload", // XML upload URL
@@ -61,11 +61,11 @@ You can upload it using graphical interface (our website) or using metaqrcode RE
           processData: false,
           beforeSend: function (request) {
               // use one of two methods depending on login type used
-              if (<<sessionToken>>!=null) {
-                  request.setRequestHeader("Authorization", "Token "+<<sessionToken>>);
+              if (%%sessionToken%%!=null) {
+                  request.setRequestHeader("Authorization", "Token "+%%sessionToken%%);
               }
-              if (<<accessToken>>!=null) {
-                  request.setRequestHeader("Authorization", "Bearer "+<<accessToken>>);
+              if (%%accessToken%%!=null) {
+                  request.setRequestHeader("Authorization", "Bearer "+%%accessToken%%);
               }
           },
           error: function(jqXHR, textStatus, errorThrown) {

@@ -92,11 +92,13 @@ You can also find specific examples about REST API in samples contained here : h
 
 Using metaqrcode you can upload your XML document and associate it to a qrcode. I hope this is clear!
 
-An XML document into metaqrcode is called Repository Entry. In metaqrcode the repository is the container of all repository entry, then the repository is the container of all XML documents. Each XML document inside metaqrcode has to be associated with at least an XSD. 
+An XML document into metaqrcode is called Repository Entry. In metaqrcode the repository is the container of all repository entries, so the repository is the container of all XML documents. Each XML document inside metaqrcode has to be associated with at least one XSD. 
 
 In metaqrcode an XSD is called Catalog Entry. The Catalog is the container of all XSD.
 
-When you upload an XML you have to specify one or more XSD. The XML have to comply with the given XSD. Metaqrcode will check compliance during upload phase.When you upload an XML you can specify one XSD using API (outside the XML) or you can specify one or more XSD inside the XML document.
+When you upload an XML you have to specify one or more XSD. The XML have to comply with the given XSD. 
+Metaqrcode will check compliance during upload phase.
+When you upload an XML you can specify one XSD using API (outside the XML) or you can specify one or more XSD inside the XML document.
 
 That's all relevants concepts of metaqrcode. 
 

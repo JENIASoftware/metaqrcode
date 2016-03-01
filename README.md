@@ -267,7 +267,7 @@ In the second case your XML can refer many catalog entries (XSD). We will now se
 Suppose you want to upload this repository entry (XML) : 
 
 	<?xml version="1.0" encoding="UTF-8"?>
-	<personData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.metaqrcode/api/c/1">
+	<personData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://www.metaqrcode/api/c/1">
 	  <firstName>firstName</firstName>
 	  <lastName>lastName</lastName>
 	  <sex>MALE</sex>
@@ -308,7 +308,7 @@ When you uploaded the catalog entry (XSD), metarcode will return the catalog url
 	var data = new FormData(); // create the form data to send within subsequent post
 	var requestRepositoryUpload = new Object(); // create the upload xml request 
 	requestRepositoryUpload.defaultCatalog=null; // DO NOT set the catalog URL the xml is referring to
-	requestRepositoryUpload.correlationId=<application correlation id>; // if you need to search this qrcode in the future you can use this (your) correlationId. This is optional
+	requestRepositoryUpload.correlationId=%%application correlation id%%; // if you need to search this qrcode in the future you can use this (your) correlationId. This is optional
 	data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
 	    type: "application/json"
 	})); // set the request as fitst parameter in the form data
@@ -323,11 +323,11 @@ When you uploaded the catalog entry (XSD), metarcode will return the catalog url
 		  processData: false,
 		  beforeSend: function (request) {
 			// use one of two methods depending on login type used
-			  if (<sessionToken>!=null) {
-		              request.setRequestHeader("Authorization", "Token "+<sessionToken>);
+			  if (%%sessionToken%%!=null) {
+		              request.setRequestHeader("Authorization", "Token "+%%sessionToken%%);
 			  }
-			  if (<accessToken>!=null) {
-		              request.setRequestHeader("Authorization", "Bearer "+<accessToken>);
+			  if (%%accessToken%%!=null) {
+		              request.setRequestHeader("Authorization", "Bearer "+%%accessToken%%);
 			  }
 	          },
 		  error: function(jqXHR, textStatus, errorThrown) {
@@ -353,7 +353,7 @@ Suppose you want to extend previous XSD in this way :
 
 	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	  <xs:include schemaLocation="<URL of the personData.xsd XSD>" />
+	  <xs:include schemaLocation="https://www.metaqrcode/api/c/1" />
 	  <xs:element name="customer" type="customer"/>
 	  <xs:complexType name="customer">
 	    <xs:complexContent>
@@ -397,7 +397,7 @@ Suppose you have also this XSD :
 So we can create following XML : 
 
 	<?xml version="1.0" encoding="UTF-8"?>
-	<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="<URL of the customer.xsd XSD>" xmlns:i="<URL of the intolerances.xsd XSD>">
+	<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="%%URL of the customer.xsd XSD%%" xmlns:i="%%URL of the intolerances.xsd XSD%%">
 	  <firstName>firstName</firstName>
 	  <lastName>lastName</lastName>
 	  <sex>MALE</sex>

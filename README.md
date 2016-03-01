@@ -54,7 +54,7 @@ You can upload it using graphical interface (our website) or using metaqrcode RE
     data.append('xml',blob); // set the xml as second parameter in the form data (in alternative you can use data.append('xml',%%file field%%[0].files[0]);
     $.ajax({
           type: "POST", // method MUST BE post
-          url: "http://www.metaqrcode.com/api/rest/json/repository/upload", // XML upload URL
+          url: "https://www.metaqrcode.com/api/rest/json/repository/upload", // XML upload URL
           data: data, // formdata object
           cache: false, 
           contentType: false, 
@@ -110,7 +110,7 @@ To authenticate to metaqrcode you can use two methods : login API or openidconne
 
 In every scenario you (developer) need to register yourself and the app you are developing on metaqrcode openidconnect server.
 
-Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to register yourself and your app. After client (app) registration you will obtain a client_id to use in login API.
+Go to [https://www.metaqrcode.com/oidc](https://www.metaqrcode.com/oidc) to register yourself and your app. After client (app) registration you will obtain a client_id to use in login API.
 
 #### Get the metaqrcode session token ####
 
@@ -123,7 +123,7 @@ Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to regist
 	requestLogin.clientId=<client_id>; // client_id of the app is using metaqrcode
 	$.ajax({
 		  type: "POST", // MUST BE POST
-		  url: "http://www.metaqrcode.com/api/rest/json/login/login", // login URL, will be https
+		  url: "https://www.metaqrcode.com/api/rest/json/login/login", // login URL, will be https
 		  data: JSON.stringify(requestLogin), // data to send to server
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
@@ -141,9 +141,9 @@ Go to [http://www.metaqrcode.com/oidc](http://www.metaqrcode.com/oidc) to regist
 
 #### Using OpenID Connect ####
 
-**authorization_endpoint**: [http://www.metaqrcode.com/oidc/authorize](http://www.metaqrcode.com/oidc/authorize)
+**authorization_endpoint**: [https://www.metaqrcode.com/oidc/authorize](https://www.metaqrcode.com/oidc/authorize)
 
-For more info see our configuration endpoint: [http://www.metaqrcode.com/oidc/.well-known/openid-configuration](http://www.metaqrcode.com/oidc/.well-known/openid-configuration)
+For more info see our configuration endpoint: [https://www.metaqrcode.com/oidc/.well-known/openid-configuration](https://www.metaqrcode.com/oidc/.well-known/openid-configuration)
 
 *Note that uploaded XML are "property of" the user has uploaded them. We discourage using one generic user and password for all users of your app.*
 
@@ -314,7 +314,7 @@ When you uploaded the catalog entry (XSD), metarcode will return the catalog url
 	data.append('xml',blob); // set the xml as second parameter in the form data (in alternative you can use data.append('xml',<file field>[0].files[0]);
 	$.ajax({
 		  type: "POST", // method MUST BE post
-		  url: "http://www.metaqrcode.com/api/rest/json/repository/upload", // upload URL
+		  url: "https://www.metaqrcode.com/api/rest/json/repository/upload", // upload URL
 		  data: data, // formdata object
 		  cache: false, 
 		  contentType: false, 
@@ -432,51 +432,51 @@ All metaqrcode REST API can be consumed using JSON or XML.
 
 #### XML URL ####
 
-http://www.metaqrcode.com/api/rest/xml/ping?_wadl
+https://www.metaqrcode.com/api/rest/xml/ping?_wadl
 
-http://www.metaqrcode.com/api/rest/xml/catalog?_wadl
+https://www.metaqrcode.com/api/rest/xml/catalog?_wadl
 
-http://www.metaqrcode.com/api/rest/xml/repository?_wadl
+https://www.metaqrcode.com/api/rest/xml/repository?_wadl
 
-http://www.metaqrcode.com/api/rest/xml/link?_wadl
+https://www.metaqrcode.com/api/rest/xml/link?_wadl
 
-http://www.metaqrcode.com/api/rest/xml/registration?_wadl
+https://www.metaqrcode.com/api/rest/xml/registration?_wadl
 
-http://www.metaqrcode.com/api/rest/xml/login?_wadl
+https://www.metaqrcode.com/api/rest/xml/login?_wadl
 
 #### JSON URL ####
 
-http://www.metaqrcode.com/api/rest/json/ping?_wadl
+https://www.metaqrcode.com/api/rest/json/ping?_wadl
 
-http://www.metaqrcode.com/api/rest/json/catalog?_wadl
+https://www.metaqrcode.com/api/rest/json/catalog?_wadl
 
-http://www.metaqrcode.com/api/rest/json/repository?_wadl
+https://www.metaqrcode.com/api/rest/json/repository?_wadl
 
-http://www.metaqrcode.com/api/rest/json/link?_wadl
+https://www.metaqrcode.com/api/rest/json/link?_wadl
 
-http://www.metaqrcode.com/api/rest/json/registration?_wadl
+https://www.metaqrcode.com/api/rest/json/registration?_wadl
 
-http://www.metaqrcode.com/api/rest/json/login?_wadl
+https://www.metaqrcode.com/api/rest/json/login?_wadl
 
 #### other URL ####
 
-http://www.metaqrcode.com/api/c/{id} -> download catalog entry (XSD) by id
+https://www.metaqrcode.com/api/c/{id} -> download catalog entry (XSD) by id
 
-http://www.metaqrcode.com/api/c/{id}/detail -> download catalog entry description by id
+https://www.metaqrcode.com/api/c/{id}/detail -> download catalog entry description by id
 
-http://www.metaqrcode.com/api/r/{id} -> download repository entry (XML) by id
+https://www.metaqrcode.com/api/r/{id} -> download repository entry (XML) by id
 
-http://www.metaqrcode.com/api/r/{id}/json -> download repository entry (XML) as json by id
+https://www.metaqrcode.com/api/r/{id}/json -> download repository entry (XML) as json by id
 
-http://www.metaqrcode.com/api/r/{id}/detail -> download repository entry description by id
+https://www.metaqrcode.com/api/r/{id}/detail -> download repository entry description by id
 
-http://www.metaqrcode.com/api/qr/{id} -> download wrcode (image) of a repository entry id
+https://www.metaqrcode.com/api/qr/{id} -> download wrcode (image) of a repository entry id
 
-http://www.metaqrcode.com/api/l/{oc} -> download repository entry (XML) by his link
+https://www.metaqrcode.com/api/l/{oc} -> download repository entry (XML) by his link
 
-http://www.metaqrcode.com/api/l/{oc}/json -> download repository entry (XML) as json his link
+https://www.metaqrcode.com/api/l/{oc}/json -> download repository entry (XML) as json his link
 
-http://www.metaqrcode.com/api/l/{oc}/detail -> download repository entry description by his link
+https://www.metaqrcode.com/api/l/{oc}/detail -> download repository entry description by his link
 
 
 

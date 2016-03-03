@@ -25,7 +25,7 @@ You can upload it using graphical interface (our website) or using metaqrcode RE
 
 * login to metaqrcode
 * go to XSD Catalog
-* search in metaqrcode XSD catalog for helloworld.xsd and copy the catalog URL
+* search in metaqrcode XSD catalog for helloworld.xsd (shuold be https://www.metaqrcode.com/api/c/1) and copy the catalog URL
 * go to XML Repository and click on uplaod
 * specify the default XSD catalog URL with the url of the catalog of helloworld.xsd
 * insert previous XML in the textarea
@@ -85,6 +85,8 @@ You can upload it using graphical interface (our website) or using metaqrcode RE
 # 2. Where to find these examples? #
 
 You can find all examples described in this tutorial here : https://github.com/JENIASoftware/metaqrcode/blob/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp/gettingStarted.html
+
+You can find examples about XSD and XML here : https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-catalog/src/main/resources
 
 You can also find specific examples about REST API in samples contained here : https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp
 
@@ -166,8 +168,10 @@ To use that features, you always have to refer to an existing schema by using it
 
 Suppose you want to upload this XSD
 
-	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns="personData.xsd"
+		targetNamespace="personData.xsd"
+		elementFormDefault="qualified" attributeFormDefault="unqualified">
 	  <xs:element name="personData" type="personData"/>
 	  <xs:complexType name="personData">
 	    <xs:sequence>
@@ -194,6 +198,7 @@ Suppose you want to upload this XSD
 	</xs:schema>
 
 You can upload it using graphical interface (our website) or using metaqrcode REST API.
+You should find it already uploaded in catalog at this url : https://www.metaqrcode.com/api/c/2
 
 #### Using Metaqrcode Website ####
 
@@ -267,7 +272,10 @@ In the second case your XML can refer many catalog entries (XSD). We will now se
 Suppose you want to upload this repository entry (XML) : 
 
 	<?xml version="1.0" encoding="UTF-8"?>
-	<personData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://www.metaqrcode/api/c/1">
+	<personData 
+		xmlns="personData.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="personData.xsd https://www.metaqrcode.com/api/c/2">
 	  <firstName>firstName</firstName>
 	  <lastName>lastName</lastName>
 	  <sex>MALE</sex>
@@ -281,17 +289,17 @@ Suppose you want to upload this repository entry (XML) :
 	</personData>
 
 In this example you have an XML that refers to previous uploaded XSD : personData.xsd. 
-In the simple example the URL of the previously uploaded XSD is : http://www.metaqrcode/api/c/1
+In the simple example the URL of the previously uploaded XSD is : http://www.metaqrcode/api/c/2
 
 When you uploaded the catalog entry (XSD), metarcode will return the catalog url : the URL of the uploaded XSD. You have to use this URL inside our XML. To upload this repository entry into metaqrcode you have 2 ways : 
 
 #### Using Metaqrcode Website ####
 
 * login to metaqrcode
-* search in metaqrcode catalog for personData.xsd (previously uploaded XSD) and copy the catalog URL
+* search in metaqrcode catalog for personData.xsd (previously uploaded XSD) and copy the catalog URL (you can also find it at https://www.metaqrcode.com/api/c/2)
 * go to uplaod xml
 * DO NOT specify the default catalog URL 
-* insert previous XML in the textarea (verify and correct xsi:noNamespaceSchemaLocation attribute)
+* insert previous XML in the textarea (verify and correct xsi:schemaLocation attribute)
 * press upload xml
 * you will see the qrcode of the uploaded xml
 * you can use (by ie download) the generated qrcode
@@ -299,7 +307,7 @@ When you uploaded the catalog entry (XSD), metarcode will return the catalog url
 #### Consume Metaqrcode REST API ####
 
 * login to metaqrcode
-* search in metaqrcode catalog for personData.xsd and copy the catalog URL
+* search in metaqrcode catalog for personData.xsd and copy the catalog URL (you can also find it at https://www.metaqrcode.com/api/c/2)
 
 <pre>
 	//
@@ -352,8 +360,11 @@ In catalog entry (XSD) you can use all feature you need. In next example we use 
 Suppose you want to extend previous XSD in this way : 
 
 	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	  <xs:include schemaLocation="https://www.metaqrcode/api/c/1" />
+	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns="personData.xsd"
+		targetNamespace="personData.xsd"
+		elementFormDefault="qualified" attributeFormDefault="unqualified">
+	  <xs:include schemaLocation="https://www.metaqrcode.com/api/c/2" />
 	  <xs:element name="customer" type="customer"/>
 	  <xs:complexType name="customer">
 	    <xs:complexContent>
@@ -376,7 +387,7 @@ Suppose you want to extend previous XSD in this way :
 	  </xs:simpleType>
 	</xs:schema>
 
-You can upload catalog entry (XSD) as shown in 4.1 example. You only have to pay attention to schemaLocation attribute of xs:include tag (by ie you can specify http://www.metaqrcode/api/c/1).
+You can upload catalog entry (XSD) as shown in 4.1 example. You only have to pay attention to schemaLocation attribute of xs:include tag (by ie you can specify http://www.metaqrcode/api/c/2).
 When you refer to a catalogEntry you always need to use the catalog URL.
 
 ## 5.4. repository entry (XML) referring different catalog entries (XSDs) ##
@@ -384,8 +395,13 @@ When you refer to a catalogEntry you always need to use the catalog URL.
 Suppose you have also this XSD : 
 
 	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns="intolerances.xsd"
+		targetNamespace="intolerances.xsd"
+		elementFormDefault="qualified" attributeFormDefault="unqualified">
+	
 	  <xs:element name="intolerances" type="intolerances"/>
+	
 	  <xs:complexType name="intolerances">
 	    <xs:sequence>
 	      <xs:element name="gluten" type="xs:boolean"/>
@@ -397,7 +413,11 @@ Suppose you have also this XSD :
 So we can create following XML : 
 
 	<?xml version="1.0" encoding="UTF-8"?>
-	<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="%%URL of the customer.xsd XSD%%" xmlns:i="%%URL of the intolerances.xsd XSD%%">
+	<customer xmlns="personData.xsd"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="personData.xsd https://www.metaqrcode.com/api/c/3
+			intolerances.xsd https://www.metaqrcode.com/api/c/4" 
+			xmlns:i="intolerances.xsd">
 	  <firstName>firstName</firstName>
 	  <lastName>lastName</lastName>
 	  <sex>MALE</sex>
@@ -466,7 +486,7 @@ https://www.metaqrcode.com/api/c/{id} -> download catalog entry (XSD) by id
 
 https://www.metaqrcode.com/api/c/{id}/detail -> download catalog entry description by id
 
-https://www.metaqrcode.com/api/r/{id} -> download repository entry (XML) by id
+https://www.metaqrcode.com/api/r/{id} -> download repository entry (XML) by id (*this is contained in qrcode*)
 
 https://www.metaqrcode.com/api/r/{id}/json -> download repository entry (XML) as json by id
 

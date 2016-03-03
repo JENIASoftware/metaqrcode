@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<customer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://localhost:8080/api/c/73">
+<customer xmlns="personData.xsd"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="personData.xsd https://www.metaqrcode.com/api/c/3">
   <firstName>firstName</firstName>
   <lastName>lastName</lastName>
   <sex>MALE</sex>

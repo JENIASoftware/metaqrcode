@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="personData.xsd"
+	targetNamespace="personData.xsd"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
 
-  <xs:include schemaLocation="personData.xsd" />
+  <xs:include schemaLocation="https://www.metaqrcode.com/api/c/2" />
 
   <xs:element name="customer" type="customer"/>
 

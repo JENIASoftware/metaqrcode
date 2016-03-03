@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="personData" type="personData"/>
+  <xs:element name="printer" type="printer"/>
 
-  <xs:complexType name="personData">
+  <xs:complexType name="printer">
     <xs:sequence>
-      <xs:element name="firstName" type="xs:string" minOccurs="1"/>
-      <xs:element name="lastName" type="xs:string" minOccurs="1"/>
-      <xs:element name="sex" type="sex" minOccurs="1"/>
-      <xs:element name="birthday" type="xs:dateTime" minOccurs="1"/>
-      <xs:element name="birthPlace" type="xs:string" minOccurs="1"/>
-      <xs:element name="citizenship" type="xs:string" minOccurs="1"/>
-      <xs:element name="address" type="xs:string" minOccurs="1"/>
-      <xs:element name="eMail" type="xs:string" minOccurs="1"/>
-      <xs:element name="taxCode" type="xs:string" minOccurs="1"/>
-      <xs:element name="phone" type="xs:string" minOccurs="1"/>
+      <xs:element name="brand" type="xs:string" minOccurs="1"/>
+      <xs:element name="model" type="xs:string" minOccurs="1"/>
+      <xs:element name="ipAddress" type="xs:string" minOccurs="1"/>
+      <xs:element name="color" type="yesno" minOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="sex">
+  <xs:simpleType name="yesno">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="MALE"/>
-      <xs:enumeration value="OTHER"/>
-      <xs:enumeration value="FEMALE"/>
+      <xs:enumeration value="YES"/>
+      <xs:enumeration value="NO"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

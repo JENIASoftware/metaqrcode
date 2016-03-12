@@ -44,4 +44,12 @@ public class RequestLogin extends Request {
 	 */
 	private String clientId;
 
+	@Getter
+	@Setter
+	@XmlJavaTypeAdapter(AutotrimAdapter.class)
+	/**
+	 * clientSecret
+	 */
+	private String clientSecret;
+
 }

@@ -7,22 +7,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.AuthCache;
-import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.BasicAuthCache;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.util.EntityUtils;
 
 import it.jenia.metaqrcode.dto.Request;
@@ -36,15 +27,17 @@ import it.jenia.metaqrcode.dto.registration.ResponseRegistrationPrepare;
 
 public abstract class TestRest {
 	
-	protected static final String PASSWORD = "bbbbbb";
-	protected static final String EMAIL = "pippo@jenia.it";
+	protected static final String PASSWORD = "b1539092@trbvn.com";
+	protected static final String EMAIL = "b1539092@trbvn.com";
 	protected String host;
 	protected int port;
-	protected String user;
-	protected String password;
+//	protected String user;
+//	protected String password;
 	protected String scheme;
 	protected String contextRoot;
 	protected String sessionToken;
+	protected String clientId;
+	protected String clientSecret;
 	protected boolean registrationPrepareSuccess;
 	protected boolean registrationConfirmSuccess;
 	protected boolean loginSuccess;
@@ -53,9 +46,11 @@ public abstract class TestRest {
 		super();
 		host = "www.metaqrcode.com";
 		port = 443;
-		user = "dummy";
-		password = "disabled";
+//		user = "admin";
+//		password = "jeniasrv018";
 		scheme = "https";
+		clientId = "b79eaae3-062d-4466-a10f-ffdb935bf7a1";
+		clientSecret = "Ghk6MiK8F6pRUaoJUxCtioktP3tYkqLxewqmB-YtrEZAKYmadZ2oiHWQmHsaE7mbf5u-n-CKjbNeg3lQAXL6XQ";
 		contextRoot = "/api";
 	}
 	
@@ -108,6 +103,8 @@ public abstract class TestRest {
 		RequestLogin req = new RequestLogin();
 		req.setEmail(EMAIL);
 		req.setPassword(PASSWORD);
+		req.setClientId(clientId);
+		req.setClientSecret(clientSecret);
 		ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/login", req, ResponseLogin.class);
 		assert(0 == res.getReturnCode());
 		sessionToken = res.getSessionToken();

@@ -27,8 +27,8 @@ import it.jenia.metaqrcode.dto.registration.ResponseRegistrationPrepare;
 
 public abstract class TestRest {
 	
-	protected static final String PASSWORD = "b1539092@trbvn.com";
-	protected static final String EMAIL = "b1539092@trbvn.com";
+	protected static final String PASSWORD = "use your password";
+	protected static final String EMAIL = "use your email";
 	protected String host;
 	protected int port;
 //	protected String user;

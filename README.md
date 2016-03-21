@@ -482,23 +482,23 @@ https://www.metaqrcode.com/api/rest/json/login?_wadl
 
 #### other URL ####
 
-https://www.metaqrcode.com/api/c/{id} -> download catalog entry (XSD) by id
+https://www.metaqrcode.com/api/c/{id} -> (http GET) download catalog entry (XSD) by id
 
-https://www.metaqrcode.com/api/c/{id}/detail -> download catalog entry description by id
+https://www.metaqrcode.com/api/c/{id}/detail -> (http GET) download catalog entry detail by id
 
-https://www.metaqrcode.com/api/r/{id} -> download repository entry (XML) by id (*this is contained in qrcode*)
+https://www.metaqrcode.com/api/r/{id} -> (http GET) download repository entry (XML) by id (*this is contained in generated qrcode*)
 
-https://www.metaqrcode.com/api/r/{id}/json -> download repository entry (XML) as json by id
+https://www.metaqrcode.com/api/r/{id}/json -> (http GET) download repository entry (XML) as json by id
 
-https://www.metaqrcode.com/api/r/{id}/detail -> download repository entry description by id
+https://www.metaqrcode.com/api/r/{id}/detail -> (http GET) download repository entry details by id
 
-https://www.metaqrcode.com/api/qr/{id} -> download wrcode (image) of a repository entry id
+https://www.metaqrcode.com/api/qr/{id} -> (http GET) download qrcode (image) of a repository entry id
 
-https://www.metaqrcode.com/api/l/{oc} -> download repository entry (XML) by his link
+https://www.metaqrcode.com/api/l/{oc} -> (http GET) download repository entry (XML) by his link
 
-https://www.metaqrcode.com/api/l/{oc}/json -> download repository entry (XML) as json his link
+https://www.metaqrcode.com/api/l/{oc}/json -> (http GET) download repository entry (XML) as json his link
 
-https://www.metaqrcode.com/api/l/{oc}/detail -> download repository entry description by his link
+https://www.metaqrcode.com/api/l/{oc}/detail -> (http GET) download repository entry details by his link
 
 
 

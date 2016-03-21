@@ -451,6 +451,7 @@ These are only theoretical calculations, in the real world you have to do some e
 ## 7. REST API descriptors ##
 
 All metaqrcode REST API can be consumed using JSON or XML.
+You can find Java DTO used by following rest services here : https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-dto
 
 #### XML URL ####
 

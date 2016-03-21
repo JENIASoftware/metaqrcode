@@ -453,6 +453,14 @@ These are only theoretical calculations, in the real world you have to do some e
 All metaqrcode REST API can be consumed using JSON or XML.
 You can find Java DTO used by following rest services here : https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-dto
 
+#### JAVA SAMPLES ####
+
+You can find some sample written in java here : https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-java
+
+#### JAVASCRIPT SAMPLES ####
+
+You can find some sample written in javascript here : https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-js
+
 #### XML URL ####
 
 https://www.metaqrcode.com/api/rest/xml/ping?_wadl

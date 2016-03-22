@@ -5,14 +5,21 @@
 	<parent>
 		<groupId>it.jenia.metaqrcode</groupId>
 		<artifactId>metaqrcode-client</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 
 	<name>metaqrcode-client-scanner</name>
 	<artifactId>metaqrcode-client-scanner</artifactId>
 	<packaging>jar</packaging>
 	<properties>
+		<project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
 		<zxing.version>3.2.0</zxing.version>
+		<slf4j.version>1.7.12</slf4j.version>
+		<lombok.version>1.16.4</lombok.version>
+		<log4j.version>1.2.17</log4j.version>
+		<junit.version>4.11</junit.version>
+		<java.version>1.7</java.version>
+		<metaqrcode.version>1.0.0</metaqrcode.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -40,6 +47,11 @@
 				<artifactId>javase</artifactId>
 				<version>${zxing.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
@@ -55,6 +67,14 @@
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>javase</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 	</dependencies>
 	<build>

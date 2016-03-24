@@ -495,7 +495,7 @@ https://www.metaqrcode.com/api/c/{id} -> (http GET) download catalog entry (XSD)
 
 https://www.metaqrcode.com/api/c/{id}/detail -> (http GET) download catalog entry detail by id
 
-https://www.metaqrcode.com/api/r/{id} -> (http GET) download repository entry (XML) by id (**this is contained in qrcode**)
+https://www.metaqrcode.com/api/r/{id} -> (http GET) download repository entry (XML) by id ( **this is contained in qrcode** )
 
 https://www.metaqrcode.com/api/r/{id}/json -> (http GET) download repository entry (XML) as json by id
 

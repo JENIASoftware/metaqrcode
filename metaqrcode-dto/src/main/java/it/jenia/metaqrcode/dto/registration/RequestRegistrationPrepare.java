@@ -66,6 +66,14 @@ public class RequestRegistrationPrepare extends Request {
 	@Setter
 	@XmlJavaTypeAdapter(AutotrimAdapter.class)
 	/**
+	 * user company name
+	 */
+	private String companyName;
+
+	@Getter
+	@Setter
+	@XmlJavaTypeAdapter(AutotrimAdapter.class)
+	/**
 	 * user address
 	 */
 	private String address;

@@ -49,6 +49,13 @@ public class ResponseRegistrationRead extends Response {
 	@Getter
 	@Setter
 	/**
+	 * user company name
+	 */
+	private String companyName;
+
+	@Getter
+	@Setter
+	/**
 	 * user address
 	 */
 	private String address;

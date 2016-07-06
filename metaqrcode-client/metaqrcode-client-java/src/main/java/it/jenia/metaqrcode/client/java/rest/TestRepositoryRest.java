@@ -35,7 +35,6 @@ public class TestRepositoryRest extends TestRest {
 
 	@Test
 	public void a_test() throws Exception {
-		verifyRegistrationAndLogin();
 		BigInteger idC = null;
 		BigInteger idR = null;
 		String catalogGet = null;
@@ -82,7 +81,6 @@ public class TestRepositoryRest extends TestRest {
 
 	@Test
 	public void b_test() throws Exception {
-		verifyRegistrationAndLogin();
 		BigInteger idC = null;
 		BigInteger idR = null;
 		String catalogGet = null;
@@ -137,7 +135,6 @@ public class TestRepositoryRest extends TestRest {
 
 	@Test
 	public void c_test() throws Exception {
-		verifyRegistrationAndLogin();
 		BigInteger idC = null;
 		BigInteger idR = null;
 		String repositoryGet;

@@ -37,7 +37,6 @@ public class TestLinkRest extends TestRest {
 
 	@Test
 	public void a_test() throws Exception {
-		verifyRegistrationAndLogin();
 		BigInteger idC = null;
 		BigInteger idR = null;
 		String otherCode = null;

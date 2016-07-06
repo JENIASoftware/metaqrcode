@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import it.jenia.metaqrcode.dto.ping.RequestPingAnonymous;
-import it.jenia.metaqrcode.dto.ping.RequestPingAuthenticated;
 import it.jenia.metaqrcode.dto.ping.ResponsePing;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -49,51 +48,6 @@ public class TestPingRest extends TestRest {
 			RequestPingAnonymous req = new RequestPingAnonymous();
 			req.setFrom(FROM);
 			ResponsePing res =  (ResponsePing)doPostCallBasicXML("/rest/xml/ping/failAnonymous", req, ResponsePing.class);
-			assert(-1 == res.getReturnCode());
-			System.out.println("+++++++++++++++++++++++++Fail ok XML");
-		}
-	}
-
-	@Test
-	public void e_test() throws Exception {
-		verifyRegistrationAndLogin();
-		{
-			RequestPingAuthenticated req = new RequestPingAuthenticated();
-			req.setFrom(FROM);
-			ResponsePing res =  (ResponsePing)doPostCallBasicJSON("/rest/json/ping/nowAuthenticated", req, ResponsePing.class);
-			assert(0 == res.getReturnCode());
-			System.out.println("+++++++++++++++++++++++++Ping ok JSON");
-		}
-	}
-	@Test
-	public void f_test() throws Exception {
-		verifyRegistrationAndLogin();
-		{
-			RequestPingAuthenticated req = new RequestPingAuthenticated();
-			req.setFrom(FROM);
-			ResponsePing res =  (ResponsePing)doPostCallBasicJSON("/rest/json/ping/failAuthenticated", req, ResponsePing.class);
-			assert(-1 == res.getReturnCode());
-			System.out.println("+++++++++++++++++++++++++Fail ok JSON");
-		}
-	}
-	@Test
-	public void g_test() throws Exception {
-		verifyRegistrationAndLogin();
-		{
-			RequestPingAuthenticated req = new RequestPingAuthenticated();
-			req.setFrom(FROM);
-			ResponsePing res =  (ResponsePing)doPostCallBasicXML("/rest/xml/ping/nowAuthenticated", req, ResponsePing.class);
-			assert(0 == res.getReturnCode());
-			System.out.println("+++++++++++++++++++++++++Ping ok XML");
-		}
-	}
-	@Test
-	public void h_test() throws Exception {
-		verifyRegistrationAndLogin();
-		{
-			RequestPingAuthenticated req = new RequestPingAuthenticated();
-			req.setFrom(FROM);
-			ResponsePing res =  (ResponsePing)doPostCallBasicXML("/rest/xml/ping/failAuthenticated", req, ResponsePing.class);
 			assert(-1 == res.getReturnCode());
 			System.out.println("+++++++++++++++++++++++++Fail ok XML");
 		}

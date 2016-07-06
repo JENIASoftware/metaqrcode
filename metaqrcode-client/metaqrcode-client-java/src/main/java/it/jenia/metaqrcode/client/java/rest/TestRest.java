@@ -9,6 +9,7 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -18,99 +19,22 @@ import org.apache.http.util.EntityUtils;
 
 import it.jenia.metaqrcode.dto.Request;
 import it.jenia.metaqrcode.dto.Response;
-import it.jenia.metaqrcode.dto.login.RequestLogin;
-import it.jenia.metaqrcode.dto.login.ResponseLogin;
-import it.jenia.metaqrcode.dto.registration.RequestRegistrationConfirm;
-import it.jenia.metaqrcode.dto.registration.RequestRegistrationPrepare;
-import it.jenia.metaqrcode.dto.registration.ResponseRegistrationConfirm;
-import it.jenia.metaqrcode.dto.registration.ResponseRegistrationPrepare;
 
 public abstract class TestRest {
 	
-	protected static final String PASSWORD = "use your password";
-	protected static final String EMAIL = "use your email";
 	protected String host;
 	protected int port;
-//	protected String user;
-//	protected String password;
 	protected String scheme;
 	protected String contextRoot;
-	protected String sessionToken;
-	protected String clientId;
-	protected String clientSecret;
-	protected boolean registrationPrepareSuccess;
-	protected boolean registrationConfirmSuccess;
-	protected boolean loginSuccess;
 
 	public TestRest() {
 		super();
-		host = "www.metaqrcode.com";
-		port = 443;
-//		user = "admin";
-//		password = "jeniasrv018";
-		scheme = "https";
-		clientId = "b79eaae3-062d-4466-a10f-ffdb935bf7a1";
-		clientSecret = "Ghk6MiK8F6pRUaoJUxCtioktP3tYkqLxewqmB-YtrEZAKYmadZ2oiHWQmHsaE7mbf5u-n-CKjbNeg3lQAXL6XQ";
+		host = "localhost";
+		port = 8080;
+		scheme = "http";
 		contextRoot = "/api";
 	}
 	
-	protected void verifyRegistrationAndLogin() throws Exception {
-		registrationPrepare();
-		if (registrationPrepareSuccess) {
-			registrationConfirm();
-			if (registrationConfirmSuccess) {
-				login();
-			}
-		}
-	}
-
-	protected void verifyRegistration() throws Exception {
-		registrationPrepare();
-		if (registrationPrepareSuccess) {
-			registrationConfirm();
-		}
-	}
-	
-	protected void registrationPrepare() throws Exception {
-		RequestRegistrationPrepare req = new RequestRegistrationPrepare();
-		req.setEmail(EMAIL);
-		req.setPassword(PASSWORD);
-		req.setNickName("iiii");
-		req.setFirstName("cccc");
-		req.setLastName("dddd");
-		req.setAddress("eeee");
-		req.setCity("ffff");
-		req.setZipCode("gggg");
-		req.setPreferredLanguage("it");
-		ResponseRegistrationPrepare res =  (ResponseRegistrationPrepare)doPostCallBasicXML("/rest/xml/registration/prepare", req, ResponseRegistrationPrepare.class);
-		if (res.getReturnCode()==0 || res.getReason().indexOf("email already configured")!=-1) {
-			registrationPrepareSuccess=true;
-		} else {
-			assert(0 == res.getReturnCode());
-		}
-	}
-
-	private void registrationConfirm() throws Exception {
-		RequestRegistrationConfirm req = new RequestRegistrationConfirm();
-		req.setEmail(EMAIL);
-		req.setRegistrationConfirmationCode("000000");
-		ResponseRegistrationConfirm res =  (ResponseRegistrationConfirm)doPostCallBasicXML("/rest/xml/registration/confirm", req, ResponseRegistrationConfirm.class);
-		assert(0 == res.getReturnCode());
-		registrationConfirmSuccess=true;
-	}
-
-	private void login() throws Exception {
-		RequestLogin req = new RequestLogin();
-		req.setEmail(EMAIL);
-		req.setPassword(PASSWORD);
-		req.setClientId(clientId);
-		req.setClientSecret(clientSecret);
-		ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/login", req, ResponseLogin.class);
-		assert(0 == res.getReturnCode());
-		sessionToken = res.getSessionToken();
-		loginSuccess=true;
-	}
-
 	@SuppressWarnings("static-access")
 	protected Response doPostCallBasicXML(String url, Request reqObj, Class<? extends Response> respClass) throws Exception {
 		
@@ -120,9 +44,7 @@ public abstract class TestRest {
 
 		CloseableHttpClient httpclient = httpclientBuilder.build();
         HttpPost httppost = new HttpPost(contextRoot+url);
-        if (sessionToken!=null) {
-        	httppost.addHeader("Authorization", "Token "+sessionToken);
-        }
+        completeHttpRequest(httppost);
         String req = reqObj.toXML();
         ByteArrayEntity body = new ByteArrayEntity(req.getBytes());
         body.setContentType("application/xml");
@@ -156,9 +78,7 @@ public abstract class TestRest {
 		CloseableHttpClient httpclient = httpclientBuilder.build();
 		
         HttpPost httppost = new HttpPost(contextRoot+url);
-        if (sessionToken!=null) {
-        	httppost.addHeader("Authorization", "Token "+sessionToken);
-        }
+        completeHttpRequest(httppost);
         String request = reqObj.toXML();
         MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
         multipartEntityBuilder.addTextBody("request", request, ContentType.APPLICATION_XML);
@@ -193,9 +113,7 @@ public abstract class TestRest {
 		CloseableHttpClient httpclient = httpclientBuilder.build();
 		
         HttpPost httppost = new HttpPost(contextRoot+url);
-        if (sessionToken!=null) {
-        	httppost.addHeader("Authorization", "Token "+sessionToken);
-        }
+        completeHttpRequest(httppost);
         String req = reqObj.toXML();
         ByteArrayEntity body = new ByteArrayEntity(req.getBytes());
         body.setContentType("application/xml");
@@ -225,9 +143,7 @@ public abstract class TestRest {
 		CloseableHttpClient httpclient = httpclientBuilder.build();
 		
         HttpPost httppost = new HttpPost(contextRoot+url);
-        if (sessionToken!=null) {
-        	httppost.addHeader("Authorization", "Token "+sessionToken);
-        }
+        completeHttpRequest(httppost);
         String req = reqObj.toJson();
         ByteArrayEntity body = new ByteArrayEntity(req.getBytes());
         body.setContentType("application/json; charset=utf-8");
@@ -262,9 +178,7 @@ public abstract class TestRest {
 		CloseableHttpClient httpclient = httpclientBuilder.build();
 		
         HttpPost httppost = new HttpPost(contextRoot+url);
-        if (sessionToken!=null) {
-        	httppost.addHeader("Authorization", "Token "+sessionToken);
-        }
+        completeHttpRequest(httppost);
         String request = reqObj.toJson();
         MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
         multipartEntityBuilder.addTextBody("request", request, ContentType.APPLICATION_JSON);
@@ -299,9 +213,7 @@ public abstract class TestRest {
 		CloseableHttpClient httpclient = httpclientBuilder.build();
 		
         HttpPost httppost = new HttpPost(contextRoot+url);
-        if (sessionToken!=null) {
-        	httppost.addHeader("Authorization", "Token "+sessionToken);
-        }
+        completeHttpRequest(httppost);
         String req = reqObj.toJson();
         ByteArrayEntity body = new ByteArrayEntity(req.getBytes());
         body.setContentType("application/json; charset=utf-8");
@@ -332,9 +244,7 @@ public abstract class TestRest {
 		CloseableHttpClient httpclient = httpclientBuilder.build();
 		
         HttpGet httpget = new HttpGet(uri.getPath());
-        if (sessionToken!=null) {
-        	httpget.addHeader("Authorization", "Token "+sessionToken);
-        }
+        completeHttpRequest(httpget);
 		HttpResponse response = httpclient.execute(targetHost, httpget);
 		
 		HttpEntity entityResp = response.getEntity();
@@ -349,6 +259,10 @@ public abstract class TestRest {
         
         return ret;
 
+	}
+	
+	protected void completeHttpRequest(HttpRequestBase request) {
+		// this method will be empty. used only ofr enterprise calls
 	}
 	
 

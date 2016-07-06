@@ -23,7 +23,6 @@ public class TestCatalogRest extends TestRest {
 
 	@Test
 	public void a_test() throws Exception {
-		verifyRegistrationAndLogin();
 		BigInteger idC = null;
 		{
 			RequestCatalogUpload req = new RequestCatalogUpload();
@@ -48,7 +47,6 @@ public class TestCatalogRest extends TestRest {
 
 	@Test
 	public void b_test() throws Exception {
-		verifyRegistrationAndLogin();
 		BigInteger idC = null;
 		{
 			RequestCatalogUpload req = new RequestCatalogUpload();
@@ -97,7 +95,6 @@ public class TestCatalogRest extends TestRest {
 
 	@Test
 	public void c_test() throws Exception {
-		verifyRegistrationAndLogin();
 		BigInteger idC = null;
 		String catalogGet;
 		{

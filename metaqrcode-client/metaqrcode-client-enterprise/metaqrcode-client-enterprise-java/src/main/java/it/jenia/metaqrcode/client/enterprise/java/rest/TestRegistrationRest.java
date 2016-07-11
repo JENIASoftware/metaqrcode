@@ -43,7 +43,7 @@ public class TestRegistrationRest extends TestRestEnterprise {
 			req.setCity(super.getUser());
 			req.setZipCode(super.getUser());
 			req.setPreferredLanguage("en");
-			ResponseRegistrationPrepare res =  (ResponseRegistrationPrepare)doPostCallBasicXML("/rest/xml/registration/prepare", req, ResponseRegistrationPrepare.class);
+			ResponseRegistrationPrepare res =  (ResponseRegistrationPrepare)doPostCallBasicXML("/rest/xml/registration/enterprise/prepare", req, ResponseRegistrationPrepare.class);
 			assert(0 == res.getReturnCode());
 			System.out.println("+++++++++++++++++++++++++Registration prepare ok ");
 		}
@@ -51,7 +51,7 @@ public class TestRegistrationRest extends TestRestEnterprise {
 			RequestRegistrationConfirm req = new RequestRegistrationConfirm();
 			req.setEmail(super.getUser());
 			req.setRegistrationConfirmationCode("000000");
-			ResponseRegistrationConfirm res =  (ResponseRegistrationConfirm)doPostCallBasicXML("/rest/xml/registration/confirm", req, ResponseRegistrationConfirm.class);
+			ResponseRegistrationConfirm res =  (ResponseRegistrationConfirm)doPostCallBasicXML("/rest/xml/registration/enterprise/confirm", req, ResponseRegistrationConfirm.class);
 			assert(0 == res.getReturnCode());
 			System.out.println("+++++++++++++++++++++++++Registration confirm ok ");
 		}
@@ -59,13 +59,13 @@ public class TestRegistrationRest extends TestRestEnterprise {
 			RequestLogin req = new RequestLogin();
 			req.setEmail(super.getUser());
 			req.setPassword(super.getPassword());
-			ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/login", req, ResponseLogin.class);
+			ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/enterprise/login", req, ResponseLogin.class);
 			assert(0 == res.getReturnCode());
 			sessionToken = res.getSessionToken();
 		}
 		{
 			RequestRegistrationRead req = new RequestRegistrationRead();
-			ResponseRegistrationRead res =  (ResponseRegistrationRead)doPostCallBasicXML("/rest/xml/registration/read", req, ResponseRegistrationRead.class);
+			ResponseRegistrationRead res =  (ResponseRegistrationRead)doPostCallBasicXML("/rest/xml/registration/enterprise/read", req, ResponseRegistrationRead.class);
 			assert(0 == res.getReturnCode());
 			System.out.println("+++++++++++++++++++++++++Registration read ok ");
 		}
@@ -79,27 +79,27 @@ public class TestRegistrationRest extends TestRestEnterprise {
 			req.setCity(super.getUser());
 			req.setZipCode(super.getUser());
 			req.setPreferredLanguage("en");
-			ResponseRegistrationUpdate res =  (ResponseRegistrationUpdate)doPostCallBasicXML("/rest/xml/registration/update", req, ResponseRegistrationUpdate.class);
+			ResponseRegistrationUpdate res =  (ResponseRegistrationUpdate)doPostCallBasicXML("/rest/xml/registration/enterprise/update", req, ResponseRegistrationUpdate.class);
 			assert(0 == res.getReturnCode());
 			System.out.println("+++++++++++++++++++++++++Registration update ok ");
 		}
 		{
 			RequestPasswordUpdate req = new RequestPasswordUpdate();
 			req.setPassword(super.getPassword());
-			ResponsePasswordUpdate res =  (ResponsePasswordUpdate)doPostCallBasicXML("/rest/xml/registration/passwordUpdate", req, ResponsePasswordUpdate.class);
+			ResponsePasswordUpdate res =  (ResponsePasswordUpdate)doPostCallBasicXML("/rest/xml/registration/enterprise/passwordUpdate", req, ResponsePasswordUpdate.class);
 			assert(0 == res.getReturnCode());
 			System.out.println("+++++++++++++++++++++++++Password update ok ");
 		}
 		{
 			RequestPasswordForgotten req = new RequestPasswordForgotten();
-			ResponsePasswordForgotten res =  (ResponsePasswordForgotten)doPostCallBasicXML("/rest/xml/registration/passwordForgotten", req, ResponsePasswordForgotten.class);
+			ResponsePasswordForgotten res =  (ResponsePasswordForgotten)doPostCallBasicXML("/rest/xml/registration/enterprise/passwordForgotten", req, ResponsePasswordForgotten.class);
 			assert(0 == res.getReturnCode());
 			System.out.println("+++++++++++++++++++++++++Password forgotten ok ");
 		}
 		{
 			RequestUnregister req = new RequestUnregister();
 			req.setEmail(super.getUser());
-			ResponseUnregister res =  (ResponseUnregister)doPostCallBasicXML("/rest/xml/registration/remove", req, ResponseUnregister.class);
+			ResponseUnregister res =  (ResponseUnregister)doPostCallBasicXML("/rest/xml/registration/enterprise/remove", req, ResponseUnregister.class);
 			assert(0 == res.getReturnCode());
 			System.out.println("+++++++++++++++++++++++++Unregister ok ");
 		}

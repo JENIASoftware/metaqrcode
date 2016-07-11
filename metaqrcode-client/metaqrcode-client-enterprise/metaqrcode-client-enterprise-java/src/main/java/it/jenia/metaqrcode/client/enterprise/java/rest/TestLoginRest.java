@@ -25,18 +25,18 @@ public class TestLoginRest extends TestRestEnterprise {
 			RequestLogin req = new RequestLogin();
 			req.setEmail(super.getUser());
 			req.setPassword(super.getPassword());
-			ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/login", req, ResponseLogin.class);
+			ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/enterprise/login", req, ResponseLogin.class);
 			assert(0 == res.getReturnCode());
 			sessionToken = res.getSessionToken();
 		}
 		{
 			RequestKeepAlive req = new RequestKeepAlive();
-			ResponseKeepAlive res =  (ResponseKeepAlive)doPostCallBasicXML("/rest/xml/login/keepAlive", req, ResponseKeepAlive.class);
+			ResponseKeepAlive res =  (ResponseKeepAlive)doPostCallBasicXML("/rest/xml/login/enterprise/keepAlive", req, ResponseKeepAlive.class);
 			assert(0 == res.getReturnCode());
 		}
 		{
 			RequestKeepAlive req = new RequestKeepAlive();
-			ResponseKeepAlive res =  (ResponseKeepAlive)doPostCallBasicXML("/rest/xml/login/keepAlive", req, ResponseKeepAlive.class);
+			ResponseKeepAlive res =  (ResponseKeepAlive)doPostCallBasicXML("/rest/xml/login/enterprise/keepAlive", req, ResponseKeepAlive.class);
 			assert(0 == res.getReturnCode());
 		}
 	}

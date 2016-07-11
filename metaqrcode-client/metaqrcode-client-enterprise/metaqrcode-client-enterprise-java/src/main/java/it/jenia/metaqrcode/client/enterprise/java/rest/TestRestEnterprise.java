@@ -71,7 +71,7 @@ public abstract class TestRestEnterprise extends TestRest {
 		req.setZipCode(user);
 		req.setCompanyName(user);
 		req.setPreferredLanguage("it");
-		ResponseRegistrationPrepare res =  (ResponseRegistrationPrepare)doPostCallBasicXML("/rest/xml/registration/prepare", req, ResponseRegistrationPrepare.class);
+		ResponseRegistrationPrepare res =  (ResponseRegistrationPrepare)doPostCallBasicXML("/rest/xml/registration/enterprise/prepare", req, ResponseRegistrationPrepare.class);
 		if (res.getReturnCode()==0 || res.getReason().indexOf("email already configured")!=-1) {
 			registrationPrepareSuccess=true;
 		} else {
@@ -83,7 +83,7 @@ public abstract class TestRestEnterprise extends TestRest {
 		RequestRegistrationConfirm req = new RequestRegistrationConfirm();
 		req.setEmail(user);
 		req.setRegistrationConfirmationCode("000000");
-		ResponseRegistrationConfirm res =  (ResponseRegistrationConfirm)doPostCallBasicXML("/rest/xml/registration/confirm", req, ResponseRegistrationConfirm.class);
+		ResponseRegistrationConfirm res =  (ResponseRegistrationConfirm)doPostCallBasicXML("/rest/xml/registration/enterprise/confirm", req, ResponseRegistrationConfirm.class);
 		assert(0 == res.getReturnCode());
 		registrationConfirmSuccess=true;
 	}
@@ -94,7 +94,7 @@ public abstract class TestRestEnterprise extends TestRest {
 		req.setPassword(password);
 		req.setClientId(clientId);
 		req.setClientSecret(clientSecret);
-		ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/login", req, ResponseLogin.class);
+		ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/enterprise/login", req, ResponseLogin.class);
 		assert(0 == res.getReturnCode());
 		sessionToken = res.getSessionToken();
 		loginSuccess=true;

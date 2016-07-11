@@ -6,10 +6,6 @@
 <script src="js/dalert.jquery.js"></script>
 <script src="tools.js"></script>
 <script type="text/javascript">
-$(function (){
-	// at page load, automatically register a user and do login
-	verifyRegistrationAndLogin();
-});
 var currentXML=null;
 // upload a repository entry (XML) on metaqrcode server
 function uploadRepositoryFile() {
@@ -32,11 +28,6 @@ function uploadRepositoryFile() {
 		  cache: false,
 		  contentType: false,
 		  processData: false,
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				currentXML=null;
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
@@ -79,11 +70,6 @@ function uploadRepositoryTextArea() {
 		  cache: false,
 		  contentType: false,
 		  processData: false,
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				currentXML=null;
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
@@ -127,11 +113,6 @@ function updateRepository() {
 		  cache: false,
 		  contentType: false,
 		  processData: false,
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
@@ -163,11 +144,6 @@ function deleteRepository(xmlId) {
 		  data: JSON.stringify(requestRepositoryDelete),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
@@ -203,11 +179,6 @@ function downloadRepository(xmlId) {
 		  data: JSON.stringify(requestRepositoryDownload),
 //		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
@@ -240,11 +211,6 @@ function downloadRepositoryJson(xmlId) {
 		  data: JSON.stringify(requestRepositoryDownload),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
@@ -271,11 +237,6 @@ function searchRepository() {
 		  data: JSON.stringify(requestRepositorySearch),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },

@@ -6,10 +6,6 @@
 <script src="js/dalert.jquery.js"></script>
 <script src="tools.js"></script>
 <script type="text/javascript">
-$(function (){
-	// at page load, automatically register a user and do login
-	verifyRegistrationAndLogin();
-});
 var currentLinkId;
 function createLink() {
 	var requestLinkCreate = new Object();
@@ -21,11 +17,6 @@ function createLink() {
 		  data: JSON.stringify(requestLinkCreate),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
@@ -52,11 +43,6 @@ function deleteLink() {
 		  data: JSON.stringify(requestLinkDelete),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
@@ -80,11 +66,6 @@ function downloadLink() {
 		  data: JSON.stringify(requestLinkDownload),
 //		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },

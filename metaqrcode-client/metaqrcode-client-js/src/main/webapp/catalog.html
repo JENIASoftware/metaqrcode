@@ -6,10 +6,6 @@
 <script src="js/dalert.jquery.js"></script>
 <script src="tools.js"></script>
 <script type="text/javascript">
-$(function (){
-	// at page load, automatically register a user and do login
-	verifyRegistrationAndLogin();
-});
 
 // upload a catalog entry (XSD) into metaqrcode
 function uploadCatalog() {
@@ -31,11 +27,6 @@ function uploadCatalog() {
 		  cache: false,
 		  contentType: false,
 		  processData: false,
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
           error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
@@ -65,11 +56,6 @@ function searchCatalog() {
 		  data: JSON.stringify(requestCatalogSearch),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
@@ -96,11 +82,6 @@ function searchCatalog() {
 					result += "</td>";
 					result += '<td style="border-right: 1px solid black;">';
 					result += data.result[i].stars;
-					result += "</td>";
-					result += '<td style="border-right: 1px solid black;">';
-					result += '<a href="#" onclick="return voteCatalog('+data.result[i].id+');">';
-					result += "vote"
-					result += "</a>";
 					result += "</td>";
 					result += '<td style="border-right: 1px solid black;">';
 					result += '<a href="#" onclick="return deleteCatalog('+data.result[i].id+');">';
@@ -139,48 +120,12 @@ function deleteCatalog(id) {
 		  data: JSON.stringify(requestCatalogDelete),
 		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
 		  success: function(data, textStatus, jqXHR) {
 			if (data.returnCode >= 0) {
 				dalert.alert("delete success",'Success');
-			} else {
-				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
-			}
-		  } 
-		});
-	return false;
-}
-
-//vote a catalog entry (XSD). 
-function voteCatalog(id) {
-	var requestCatalogVote = new Object();
-	requestCatalogVote.id=id;
-	requestCatalogVote.stars=Math.floor((Math.random() * 3) + 1);;
-	requestCatalogVote.note="note for this voting";
-	$.ajax({
-		  type: "POST",
-		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/vote",
-		  data: JSON.stringify(requestCatalogVote),
-		  dataType: "json",
-		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
-		  error: function(jqXHR, textStatus, errorThrown) {
-				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
-		  },
-		  success: function(data, textStatus, jqXHR) {
-			if (data.returnCode >= 0) {
-				dalert.alert("vote success",'Success');
 			} else {
 				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
 			}
@@ -200,11 +145,6 @@ function downloadCatalog(id) {
 		  data: JSON.stringify(requestCatalogDownload),
 //		  dataType: "json",
 		  contentType: "application/json; charset=utf-8",
-		  beforeSend: function (request) {
-			  if (sessionToken!=null) {
-	              request.setRequestHeader("Authorization", "Token "+sessionToken);
-			  }
-          },
 		  error: function(jqXHR, textStatus, errorThrown) {
 				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
 		  },
@@ -230,7 +170,6 @@ function downloadCatalog(id) {
 		<p>xsd : 
 		<input type="file" name="xsd" id="xsd"/></p>
 		<a href="#" onclick="return uploadCatalog();">upload xsd</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-		<a href="#" onclick="return voteCatalog();">vote uploaded xsd</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 		<a href="#" onclick="return searchCatalog();">search xsd</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 	</form>
 	<hr/>

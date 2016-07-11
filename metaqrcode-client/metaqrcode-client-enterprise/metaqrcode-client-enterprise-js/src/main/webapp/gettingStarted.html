@@ -1,0 +1,319 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/dalert.jquery.js"></script>
+<script src="tools.js"></script>
+<script type="text/javascript">
+//GOBAL variables
+var SERVER = 'www.metaqrcode.com'; // server to connect to
+var PORT = 443; // port to connect to
+var email = "b1045660@trbvn.com"; // email of the user 
+var password = "b1045660@trbvn.com"; // password of the user
+var nickName = "nickNameaaa";  // nickname of the user
+var sessionToken = null; // after logging in you will have back a sessionToken to use in subsequent requests
+var registrationPrepareSuccess=false; // global registration prepare status
+var registrationConfirmSuccess=false; // global registration confirm status
+
+//do login to have back a valid sessionToken
+function login() {
+	var requestLogin = new Object();
+	requestLogin.email=email;
+	requestLogin.password=password;
+	var ret = false;
+	$.ajax({
+		  type: "POST",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/login/enterprise/login",
+		  data: JSON.stringify(requestLogin),
+		  dataType: "json",
+		  async: false,
+		  contentType: "application/json; charset=utf-8",
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status + ", returnCode = " + jqXHR.responseJSON.returnCode + ", reason = " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				sessionToken=data.sessionToken;
+				ret = true;
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return ret;
+}
+
+function findCatalogUrl(catalogName) {
+	var requestCatalogSearch = new Object();
+	requestCatalogSearch.nameLike=catalogName;
+	var ret = null;
+	$.ajax({
+		  type: "POST",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/search",
+		  data: JSON.stringify(requestCatalogSearch),
+		  dataType: "json",
+		  async: false,
+		  contentType: "application/json; charset=utf-8",
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status + ", returnCode = " + jqXHR.responseJSON.returnCode + ", reason = " + jqXHR.responseJSON.reason,'Error');
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0 && data.result.length>0) {
+				ret = data.result[0].catalogGet;
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+			}
+		  } 
+		});
+	return ret;
+}
+
+//simple hello world
+function test1() {
+	if (!login()) {
+		$("#result").html("login failed");
+		return false;
+	}
+	// we have to send the json request and the XML, to do that we have to create a formdata
+	var data = new FormData();
+	var requestRepositoryUpload = new Object();
+	var catalogGet = findCatalogUrl("helloworld.xsd");
+	if (catalogGet==null) {
+		$("#result").html("catalog not found");
+		return false;
+	}
+	requestRepositoryUpload.defaultCatalog=catalogGet;
+	requestRepositoryUpload.correlationId="mycorrelationId";
+	// in the form we put two attribute : request -> the json request
+	data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
+	    type: "application/json"
+	}));
+	// and xml -> the repository entry (XML) to be uploaded
+	var blob = new Blob([
+	                     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + 
+	                     "<helloWorld>" +
+						 	"<who>Andrea</who>" +
+						 "</helloWorld>"
+						 ], { type: "text/xml"});
+	data.append('xml',blob);
+	$.ajax({
+		  type: "POST",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/upload",
+		  data: data,
+		  cache: false,
+		  contentType: false,
+		  processData: false,
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status + ", returnCode = " + jqXHR.responseJSON.returnCode + ", reason = " + jqXHR.responseJSON.reason,'Error');
+				$("#result").html("upload helloworld failed");
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				$('#qrcode').attr("src", data.qrcodeGet);
+				$("#result").html("upload helloworld success");
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+				$("#result").html("upload helloworld failed");
+			}
+		  } 
+		});
+	return false;
+}
+
+function test2() {
+	// not yet implemented
+	return null;
+}
+
+function test3() {
+	var requestLogin = new Object();
+	requestLogin.email=email;
+	requestLogin.password=password;
+	$.ajax({
+		  type: "POST",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/login/enterprise/login",
+		  data: JSON.stringify(requestLogin),
+		  dataType: "json",
+		  async: false,
+		  contentType: "application/json; charset=utf-8",
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status + ", returnCode = " + jqXHR.responseJSON.returnCode + ", reason = " + jqXHR.responseJSON.reason,'Error');
+				$("#result").html("login failed");
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				sessionToken=data.sessionToken;
+				$("#result").html("login success");
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+				$("#result").html("login failed");
+			}
+		  } 
+		});
+	return false;
+}
+
+function test41() {
+	if (!login()) {
+		$("#result").html("login failed");
+		return false;
+	}
+	// we have to send the json request and the XSD, to do that we have to create a formdata
+	var data = new FormData();
+	var requestCatalogUpload = new Object();
+	requestCatalogUpload.name="person.xsd";
+	requestCatalogUpload.description="person.xsd";
+	// in the form we put two attribute : request -> the json request
+	data.append('request', new Blob([JSON.stringify(requestCatalogUpload)], {
+	    type: "application/json"
+	}));
+	// and xml -> the repository entry (XML) to be uploaded
+	var blob = new Blob([
+	                     "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
+	                     "<xs:schema version=\"1.0\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">" +
+		                     "<xs:element name=\"personData\" type=\"personData\"/>" +
+		                     "<xs:complexType name=\"personData\">" +
+		                       "<xs:sequence>" +
+		                         "<xs:element name=\"firstName\" type=\"xs:string\" minOccurs=\"1\"/>" +
+		                         "<xs:element name=\"lastName\" type=\"xs:string\" minOccurs=\"1\"/>" +
+		                         "<xs:element name=\"sex\" type=\"sex\" minOccurs=\"1\"/>" +
+		                         "<xs:element name=\"birthday\" type=\"xs:dateTime\" minOccurs=\"1\"/>" +
+		                         "<xs:element name=\"birthPlace\" type=\"xs:string\" minOccurs=\"1\"/>" +
+		                         "<xs:element name=\"citizenship\" type=\"xs:string\" minOccurs=\"1\"/>" +
+		                         "<xs:element name=\"address\" type=\"xs:string\" minOccurs=\"1\"/>" +
+		                         "<xs:element name=\"eMail\" type=\"xs:string\" minOccurs=\"1\"/>" +
+		                         "<xs:element name=\"taxCode\" type=\"xs:string\" minOccurs=\"1\"/>" +
+		                         "<xs:element name=\"phone\" type=\"xs:string\" minOccurs=\"1\"/>" +
+		                       "</xs:sequence>" +
+		                     "</xs:complexType>" +
+		                     "<xs:simpleType name=\"sex\">" +
+		                       "<xs:restriction base=\"xs:string\">" +
+		                         "<xs:enumeration value=\"MALE\"/>" +
+		                         "<xs:enumeration value=\"OTHER\"/>" +
+		                         "<xs:enumeration value=\"FEMALE\"/>" +
+		                       "</xs:restriction>" +
+		                     "</xs:simpleType>" +
+		                   "</xs:schema>"
+						 ], { type: "text/xml"});
+	// and xsd -> the catalog entry (XSD) to be uploaded
+	data.append('xsd',blob);
+	$.ajax({
+		  type: "POST",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/catalog/upload",
+		  data: data,
+		  cache: false,
+		  contentType: false,
+		  processData: false,
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status+",returncode : " + jqXHR.responseJSON.returnCode + "; reason : " + jqXHR.responseJSON.reason,'Error');
+				$("#result").html("upload person catalog failed");
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				$("#result").html("upload person catalog success");
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+				$("#result").html("upload person catalog failed");
+			}
+		  } 
+		});
+	return false;
+}
+
+function test42() {
+	if (!login()) {
+		$("#result").html("login failed");
+		return false;
+	}
+	// we have to send the json request and the XML, to do that we have to create a formdata
+	var data = new FormData();
+	var requestRepositoryUpload = new Object();
+	var catalogGet = findCatalogUrl("person.xsd");
+	if (catalogGet==null) {
+		$("#result").html("catalog not found");
+		return false;
+	}
+	requestRepositoryUpload.correlationId="mycorrelationId";
+	// in the form we put two attribute : request -> the json request
+	data.append('request', new Blob([JSON.stringify(requestRepositoryUpload)], {
+	    type: "application/json"
+	}));
+	// and xml -> the repository entry (XML) to be uploaded
+	var blob = new Blob([
+	                     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+	                     "<personData xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\""+catalogGet+"\">" +
+	                       "<firstName>firstName</firstName>" +
+	                       "<lastName>lastName</lastName>" +
+	                       "<sex>MALE</sex>" +
+	                       "<birthday>2001-12-31T12:00:00</birthday>" +
+	                       "<birthPlace>birthPlace</birthPlace>" +
+	                       "<citizenship>citizenship</citizenship>" +
+	                       "<address>address</address>" +
+	                       "<eMail>eMail</eMail>" +
+	                       "<taxCode>taxCode</taxCode>" +
+	                       "<phone>phone</phone>" +
+	                     "</personData>"
+						 ], { type: "text/xml"});
+	data.append('xml',blob);
+	$.ajax({
+		  type: "POST",
+		  url: (PORT==443?"https":"http")+"://"+SERVER+(PORT==443?"":":"+PORT)+"/api/rest/json/repository/upload",
+		  data: data,
+		  cache: false,
+		  contentType: false,
+		  processData: false,
+		  beforeSend: function (request) {
+			  if (sessionToken!=null) {
+	              request.setRequestHeader("Authorization", "Token "+sessionToken);
+			  }
+          },
+		  error: function(jqXHR, textStatus, errorThrown) {
+				dalert.alert('Generic http error on request : ' + jqXHR.status + ", returnCode = " + jqXHR.responseJSON.returnCode + ", reason = " + jqXHR.responseJSON.reason,'Error');
+				$("#result").html("upload person repository failed");
+		  },
+		  success: function(data, textStatus, jqXHR) {
+			if (data.returnCode >= 0) {
+				$('#qrcode').attr("src", data.qrcodeGet);
+				$("#result").html("upload person repository success");
+			} else {
+				dalert.alert("returncode : " + data.returnCode + "; reason : " + data.reason,'Success');
+				$("#result").html("upload person repository failed");
+			}
+		  } 
+		});
+	return false;
+}
+
+</script>
+</head>
+<body>
+	<a href="#" onclick="return test1();">1. hello worold!</a>
+	<br />
+	<a href="#" onclick="return test3();">3. loggin in</a>
+	<br />
+	<a href="#" onclick="return test41();">4.1. upload a new catalog entry (XSD)</a>
+	<br />
+	<a href="#" onclick="return test42();">4.2. upload repository entry (XML) referring a catalog entry (XSD)</a>
+	<br />
+	
+	<p>result : <span id="result"></span></p>
+	<p>qrcode : <img src="" id="qrcode"></img></p>
+	
+</body>
+</html>

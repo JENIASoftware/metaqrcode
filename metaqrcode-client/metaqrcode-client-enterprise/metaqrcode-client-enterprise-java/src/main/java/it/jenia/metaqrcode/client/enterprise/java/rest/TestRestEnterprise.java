@@ -124,4 +124,15 @@ public abstract class TestRestEnterprise extends TestRest {
 		TestRestEnterprise.nickName = nickName;
 	}
 
+	public String getSessionToken() {
+		return sessionToken;
+	}
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public String getClientSecret() {
+		return clientSecret;
+	}
 }

@@ -41,6 +41,7 @@ public class TestRegistrationRest extends TestRestEnterprise {
 			req.setLastName(super.getUser());
 			req.setAddress(super.getUser());
 			req.setCity(super.getUser());
+			req.setCompanyName(super.getUser());
 			req.setZipCode(super.getUser());
 			req.setPreferredLanguage("en");
 			ResponseRegistrationPrepare res =  (ResponseRegistrationPrepare)doPostCallBasicXML("/rest/xml/registration/enterprise/prepare", req, ResponseRegistrationPrepare.class);
@@ -59,6 +60,8 @@ public class TestRegistrationRest extends TestRestEnterprise {
 			RequestLogin req = new RequestLogin();
 			req.setEmail(super.getUser());
 			req.setPassword(super.getPassword());
+			req.setClientId(super.getClientId());
+			req.setClientSecret(super.getClientSecret());
 			ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/enterprise/login", req, ResponseLogin.class);
 			assert(0 == res.getReturnCode());
 			sessionToken = res.getSessionToken();
@@ -77,6 +80,7 @@ public class TestRegistrationRest extends TestRestEnterprise {
 			req.setLastName(super.getUser());
 			req.setAddress(super.getUser());
 			req.setCity(super.getUser());
+			req.setCompanyName(super.getUser());
 			req.setZipCode(super.getUser());
 			req.setPreferredLanguage("en");
 			ResponseRegistrationUpdate res =  (ResponseRegistrationUpdate)doPostCallBasicXML("/rest/xml/registration/enterprise/update", req, ResponseRegistrationUpdate.class);

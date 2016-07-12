@@ -25,6 +25,8 @@ public class TestLoginRest extends TestRestEnterprise {
 			RequestLogin req = new RequestLogin();
 			req.setEmail(super.getUser());
 			req.setPassword(super.getPassword());
+			req.setClientId(super.getClientId());
+			req.setClientSecret(super.getClientSecret());
 			ResponseLogin res =  (ResponseLogin)doPostCallBasicXML("/rest/xml/login/enterprise/login", req, ResponseLogin.class);
 			assert(0 == res.getReturnCode());
 			sessionToken = res.getSessionToken();

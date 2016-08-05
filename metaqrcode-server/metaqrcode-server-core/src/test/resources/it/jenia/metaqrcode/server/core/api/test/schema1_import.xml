@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<personData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema1_import.xsd">
+  <firstName>firstName</firstName>
+  <lastName>lastName</lastName>
+  <sex>MALE</sex>
+  <birthday>2001-12-31T12:00:00</birthday>
+  <birthPlace>birthPlace</birthPlace>
+  <citizenship>citizenship</citizenship>
+  <address>address</address>
+  <eMail>eMail</eMail>
+  <taxCode>taxCode</taxCode>
+  <phone>phone</phone>
+</personData>

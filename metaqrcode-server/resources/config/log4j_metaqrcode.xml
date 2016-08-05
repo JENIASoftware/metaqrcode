@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	<appender name="CA" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				   value="%-4r %d{HH:mm:ss,SSS} [%t] %-5p %c %x - %m%n" />
+		</layout>
+	</appender>
+	<!-- Application Loggers -->
+	<logger name="it.jenia.metaqrcode">
+		<level value="DEBUG" />
+	</logger>
+
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="org.eclipse.persistence">
+		<level value="ERROR" />
+	</logger>
+	
+	<logger name="org.apache.cxf">
+		<level value="WARN" />
+	</logger>
+
+	<root>
+		<level value="debug" />
+		<appender-ref ref="CA" />
+	</root>
+</log4j:configuration>

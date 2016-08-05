@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<description>metaqrcode server war db Configuration</description>
+
+	<!-- Annotation Drive Transactions -->
+	<tx:annotation-driven />
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="dataSource" ref="metaqrcode-ds" />
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- JPA Entity Manager Factory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="metaqrcode-ds" />
+		<property name="packagesToScan">
+			<list>
+				<value>it.jenia.metaqrcode.server.entities</value>
+			</list>
+		</property>
+
+		<property name="persistenceUnitName" value="metaqrcode-pu" />
+		<property name="jpaVendorAdapter">
+			<bean
+				class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+				<property name="databasePlatform" value="${metaqrcode.server.war.databasePlatform}" />
+				<property name="showSql" value="${metaqrcode.server.war.showSql}" />
+			</bean>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="eclipselink.weaving">${metaqrcode.server.war.eclipselink.weaving}</prop>
+				<prop key="eclipselink.logging.level">${metaqrcode.server.war.eclipselink.logging.level}</prop>
+				<prop key="eclipselink.logging.level.sql">${metaqrcode.server.war.eclipselink.logging.level.sql}</prop>
+				<prop key="eclipselink.cache.shared.default">${metaqrcode.server.war.eclipselink.cache.shared.default}</prop>
+				<prop key="eclipselink.ddl-generation">${metaqrcode.server.war.eclipselink.ddl-generation}</prop>
+				<prop key="eclipselink.ddl-generation.output-mode">${metaqrcode.server.war.eclipselink.ddl-generation.output-mode}</prop>
+				<prop key="eclipselink.create-ddl-jdbc-file-name">${metaqrcode.server.war.eclipselink.create-ddl-jdbc-file-name}</prop>
+				<prop key="eclipselink.drop-ddl-jdbc-file-name">${metaqrcode.server.war.eclipselink.drop-ddl-jdbc-file-name}</prop>
+				<prop key="eclipselink.application-location">${metaqrcode.server.war.eclipselink.application-location}</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

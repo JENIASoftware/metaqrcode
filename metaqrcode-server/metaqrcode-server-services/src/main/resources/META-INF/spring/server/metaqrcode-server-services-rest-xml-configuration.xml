@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd 
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<description>metaqrcode server services rest xml configuration</description>
+
+	<jaxrs:server id="metaqrcode-server-services-xmlrestping"
+		address="/rest/xml/ping">
+		<jaxrs:serviceBeans>
+			<ref bean="metaqrcode-server-services-XmlRestPingServiceImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="DefaultWadlGenerator" />
+			<ref bean="jaxbProvider" />
+ 			<ref bean="cors-filter" />
+ 			<ref bean="SpringSecurityExceptionMapper" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+	<jaxrs:server id="metaqrcode-server-services-xmlrestcatalog"
+		address="/rest/xml/catalog">
+		<jaxrs:serviceBeans>
+			<ref bean="metaqrcode-server-services-XmlRestCatalogServiceImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="DefaultWadlGenerator" />
+			<ref bean="jaxbProvider" />
+ 			<ref bean="cors-filter" />
+ 			<ref bean="SpringSecurityExceptionMapper" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+	<jaxrs:server id="metaqrcode-server-services-xmlrestrepository"
+		address="/rest/xml/repository">
+		<jaxrs:serviceBeans>
+			<ref bean="metaqrcode-server-services-XmlRestRepositoryServiceImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="DefaultWadlGenerator" />
+			<ref bean="jaxbProvider" />
+ 			<ref bean="cors-filter" />
+ 			<ref bean="SpringSecurityExceptionMapper" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+	<jaxrs:server id="metaqrcode-server-services-xmllink"
+		address="/rest/xml/link">
+		<jaxrs:serviceBeans>
+			<ref bean="metaqrcode-server-services-XmlRestLinkServiceImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="DefaultWadlGenerator" />
+			<ref bean="jaxbProvider" />
+ 			<ref bean="cors-filter" />
+ 			<ref bean="SpringSecurityExceptionMapper" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+</beans>
